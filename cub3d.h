@@ -21,8 +21,7 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <math.h>
-#include <mlx.h>
-
+#include "minilibx_mac/mlx.h"
 typedef struct	s_data
 {
 	void	*img;
