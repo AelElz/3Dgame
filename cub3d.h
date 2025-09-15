@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-azha <ael-azha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ayoub <ayoub@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/24 19:06:19 by ael-azha          #+#    #+#             */
-/*   Updated: 2025/09/15 14:11:58 by ael-azha         ###   ########.fr       */
+/*   Updated: 2025/09/15 16:20:58 by ayoub            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <stdbool.h>
+#include <string.h>
 #include <math.h>
 
 #if defined(__APPLE__)

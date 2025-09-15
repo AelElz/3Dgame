@@ -1,10 +1,13 @@
+# ── Colors ────────────────────────────────────────────────────────────────────
 RESET	= "\033[0m"
 RED		= "\033[31m"
 GREEN	= "\033[32m"
 
+# ── Compiler ──────────────────────────────────────────────────────────────────
 CC      = cc -g
 CFLAGS  = -Wall -Wextra -Werror -Iincludes
 
+# ── Detect OS ─────────────────────────────────────────────────────────────────
 UNAME_S := $(shell uname -s)
 
 ifeq ($(UNAME_S), Linux)
@@ -13,7 +16,7 @@ ifeq ($(UNAME_S), Linux)
 endif  
 
 ifeq ($(UNAME_S), Darwin)
-	MLX_DIR = minilibx_mac
+	MLX_DIR = ./minilibx_mac
 	MLX     = -L$(MLX_DIR) -lmlx -framework OpenGL -framework AppKit
 endif
 
@@ -23,33 +26,40 @@ LIBFT_DIR   = includes
 LIBFT       = $(LIBFT_DIR)/libft.a
 LIBFT_LINK  = -L$(LIBFT_DIR) -lft
 
-SRCS    = cub3d.c
+# ── Sources & Objects ─────────────────────────────────────────────────────────
+SRC_DIR = src
+OBJ_DIR = obj
 
-OBJDIR  = obj
-OBJS    = $(SRCS:%.c=$(OBJDIR)/%.o)
+SRCS    = $(SRC_DIR)/cub3d.c
 
+OBJS    = $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
+
+# ── Output ────────────────────────────────────────────────────────────────────
 NAME    = cub3d
 
+# ── Rules ─────────────────────────────────────────────────────────────────────
 all: $(NAME)
 
-$(NAME): $(OBJS)
+$(NAME): $(OBJS) $(LIBFT) $(MLXLIB)
 	$(CC) $(CFLAGS) $(OBJS) $(MLX) $(LIBFT_LINK) -o $(NAME)
 	@echo $(GREEN)"- Finish Compiling!"$(RESET)
 
 $(MLXLIB):
-	$(MAKE) -C $(MLX_DIR) -j1 all 
+	@$(MAKE) -C $(MLX_DIR) -j1 all 
 
 $(LIBFT):
 	@$(MAKE) -C $(LIBFT_DIR) all
 
-$(OBJDIR)/%.o: %.c | $(OBJDIR)
+# Object build rule (mirror src/ into obj/)
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
+	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -c $< -o $@
 
-$(OBJDIR):
-	@mkdir -p $(OBJDIR)
+$(OBJ_DIR):
+	@mkdir -p $(OBJ_DIR)
 
 clean:
-	@rm -rf $(OBJDIR)
+	@rm -rf $(OBJ_DIR)
 	@echo $(RED)"🧹 Objects removed"$(RESET)
 
 fclean: clean
