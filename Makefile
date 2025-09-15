@@ -2,7 +2,7 @@ RESET	= "\033[0m"
 RED		= "\033[31m"
 GREEN	= "\033[32m"
 
-CC      = cc
+CC      = cc -g
 CFLAGS  = -Wall -Wextra -Werror -Iincludes
 
 UNAME_S := $(shell uname -s)

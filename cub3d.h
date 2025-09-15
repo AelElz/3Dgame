@@ -6,7 +6,11 @@
 /*   By: ayoub <ayoub@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/24 19:06:19 by ael-azha          #+#    #+#             */
+<<<<<<< Updated upstream
 /*   Updated: 2025/09/15 09:23:59 by ayoub            ###   ########.fr       */
+=======
+/*   Updated: 2025/09/06 17:18:39 by ael-azha         ###   ########.fr       */
+>>>>>>> Stashed changes
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +20,20 @@
 #define WIDTH	1280
 #define HEIGHT	720
 
+#define RED     0x00FF0000
+#define GREEN   0x0000FF00
+#define BLUE    0x000000FF
+#define GRAY    0x00404040
+#define CEILCLR 0x0099CCFF  // light sky
+#define FLRCLR  0x00333333  // dark floor
+
 #include "includes/libft.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <unistd.h>
 #include <stdbool.h>
 #include <math.h>
+<<<<<<< Updated upstream
 
 #if defined(__APPLE__)
   #include "minilibx_mac/mlx.h"
@@ -208,6 +220,42 @@ const	t_img *ray_choose_tex(const t_texset *tx, const t_ray *r);
 int		err(const char *msg);
 void	*mem_xmalloc(size_t n);
 char	*str_dup0(const char *s);
+=======
+#include <mlx.h>
+
+typedef struct	s_data
+{
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+}			t_data;
+
+typedef struct	s_vars
+{
+	void		*mlx;
+	void		*win;
+	int			x;
+	t_data		frame;
+	unsigned	bg;
+}				t_vars;
+
+// Math
+int	iabs(int v);
+int	imax(int a, int b);
+int	my_round(float x);
+
+// Clear
+int		handle_destroy(t_vars *vars);
+int		mlx_close(int keycode, t_vars *vars);
+void	clear_screen(t_data *fd, unsigned color);
+
+//Render
+void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
+int		key_hook(int keycode, t_vars *vars);
+int		mouse_hook(int button, int x, int y, void *param);
+>>>>>>> Stashed changes
 
 #endif
 
