@@ -6,7 +6,7 @@
 /*   By: ayoub <ayoub@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/24 19:06:19 by ael-azha          #+#    #+#             */
-/*   Updated: 2025/09/14 19:03:32 by ayoub            ###   ########.fr       */
+/*   Updated: 2025/09/15 09:23:59 by ayoub            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@
 # define TEX_H 64
 
 
-/* ====== tiny utils ====== */
 typedef struct s_vec2d
 {
 	double x;
@@ -77,7 +76,6 @@ typedef struct s_rgba
 	int	a;
 }	t_rgba;
 
-/* One MLX image */
 typedef struct s_img
 {
 	void   *img;
@@ -89,7 +87,7 @@ typedef struct s_img
 	int     height;
 }			t_img;
 
-/* Texture set NO/SO/WE/EA (mandatory) */
+//NO/SO/WE/EA
 typedef struct s_texset
 {
 	t_img	no;
@@ -102,7 +100,6 @@ typedef struct s_texset
 	bool	loaded_ea;
 }			t_texset;
 
-/* Parsed map */
 typedef struct s_map 
 {
 	char	**grid;     /* rectangular (padded with spaces if needed) */
@@ -118,7 +115,7 @@ typedef struct s_map
 	char	spawn_dir;/* 'N','S','E','W' */
 }			t_map;
 
-/* Camera / player */
+/* player position */
 typedef struct s_player
 {
 	t_vec2d	pos;          /* world position (double) */
@@ -128,8 +125,8 @@ typedef struct s_player
 	double	rot_spd;     /* radians per frame */
 }			t_player;
 
-/* Ray info per screen column */
-typedef struct s_ray {
+typedef struct s_ray
+{
 	t_vec2d	dir;
 	t_ind2	map;         /* map cell x,y */
 	t_vec2d	side_dist;   /* distance to first side on x/y */
@@ -141,7 +138,7 @@ typedef struct s_ray {
 	int		side;        /* 0 for x-side, 1 for y-side */
 }			t_ray;
 
-/* Input state to allow smooth movement */
+/* user input */
 typedef struct s_input
 {
 	int	w;
@@ -152,8 +149,9 @@ typedef struct s_input
 	int	right;
 }		t_input;
 
-/* Root app object (central ownership) */
-typedef struct s_game {
+/* hadi hia li 3liha kolchi */
+typedef struct s_game
+{
 	void		*mlx;
 	void		*win;
 	t_img		frame;
@@ -164,24 +162,24 @@ typedef struct s_game {
 	bool		running;
 }				t_game;
 
-/* ====== textures / images ====== */
+//textures / images
 int		img_new(t_game *app, t_img *dst, int width, int height);
 void	img_free(t_game *app, t_img *img);
 int		tex_load_all(t_game *app);
 int		tex_load_file(t_game *app, t_img *dst, const char *path);
 
-/* ====== engine init / shutdown ====== */
+//engine init / shutdown
 int		game_init(t_game *app, const char *cub_path);
 void	game_free(t_game *app);
 int		game_run(t_game *app);
 
-/* ====== events / hooks ====== */
+//events / hooks
 int	key_down(int key, t_game *app);
 int	key_up(int key, t_game *app);
 int	win_close(t_game *app);
 int	loop_hook(t_game *app);
 
-/* ====== movement / collision ====== */
+//movement / collision
 int		map_is_wall(const t_map *m, int mx, int my);
 void	move_fwd(t_game *app, double amt);
 void	move_back(t_game *app, double amt);
@@ -190,7 +188,7 @@ void	strafe_right(t_game *app, double amt);
 void	turn_left(t_game *app, double ang);
 void	turn_right(t_game *app, double ang);
 
-/* ====== rendering ====== */
+//rendering
 void	draw_frame(t_game *app);
 void	draw_floor_ceil(t_game *app);
 void	draw_wall(t_game *app, int x, int top, int bot,
@@ -198,7 +196,7 @@ void	draw_wall(t_game *app, int x, int top, int bot,
 int		tex_sample_y(int y, int top, int bot);
 int		color_pack(t_rgba c);
 
-/* ====== raycasting core ====== */
+//raycasting
 void	cam_make_plane(t_player *p, double fov_deg);
 void	ray_init(t_ray *r, const t_player *p, int screen_x);
 void	ray_step_setup(t_ray *r, const t_player *p);
@@ -206,7 +204,7 @@ void	ray_dda(t_ray *r, const t_map *m);
 void	ray_perp_dist(t_ray *r, const t_player *p);
 const	t_img *ray_choose_tex(const t_texset *tx, const t_ray *r);
 
-/* ====== errors / utils ====== */
+//errors / utils
 int		err(const char *msg);
 void	*mem_xmalloc(size_t n);
 char	*str_dup0(const char *s);
