@@ -6,7 +6,7 @@
 /*   By: ayoub <ayoub@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/24 19:06:19 by ael-azha          #+#    #+#             */
-/*   Updated: 2025/09/15 16:20:58 by ayoub            ###   ########.fr       */
+/*   Updated: 2025/09/16 15:01:47 by ayoub            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,8 +191,8 @@ int	loop_hook(t_game *app);
 int		map_is_wall(const t_map *m, int mx, int my);
 void	move_fwd(t_game *app, double amt);
 void	move_back(t_game *app, double amt);
-void	strafe_left(t_game *app, double amt);
-void	strafe_right(t_game *app, double amt);
+void	move_left(t_game *app, double amt);
+void	move_right(t_game *app, double amt);
 void	turn_left(t_game *app, double ang);
 void	turn_right(t_game *app, double ang);
 

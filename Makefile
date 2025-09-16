@@ -1,13 +1,10 @@
-# ── Colors ────────────────────────────────────────────────────────────────────
 RESET	= "\033[0m"
 RED		= "\033[31m"
 GREEN	= "\033[32m"
 
-# ── Compiler ──────────────────────────────────────────────────────────────────
 CC      = cc -g
 CFLAGS  = -Wall -Wextra -Werror -Iincludes
 
-# ── Detect OS ─────────────────────────────────────────────────────────────────
 UNAME_S := $(shell uname -s)
 
 ifeq ($(UNAME_S), Linux)
@@ -26,18 +23,17 @@ LIBFT_DIR   = includes
 LIBFT       = $(LIBFT_DIR)/libft.a
 LIBFT_LINK  = -L$(LIBFT_DIR) -lft
 
-# ── Sources & Objects ─────────────────────────────────────────────────────────
 SRC_DIR = src
 OBJ_DIR = obj
 
-SRCS    = $(SRC_DIR)/cub3d.c
+SRCS    =	$(SRC_DIR)/cub3d.c\
+			$(SRC_DIR)/game_init.c\
+			$(SRC_DIR)/events.c
 
 OBJS    = $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
-# ── Output ────────────────────────────────────────────────────────────────────
 NAME    = cub3d
 
-# ── Rules ─────────────────────────────────────────────────────────────────────
 all: $(NAME)
 
 $(NAME): $(OBJS) $(LIBFT) $(MLXLIB)
@@ -50,7 +46,6 @@ $(MLXLIB):
 $(LIBFT):
 	@$(MAKE) -C $(LIBFT_DIR) all
 
-# Object build rule (mirror src/ into obj/)
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
 	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -c $< -o $@
