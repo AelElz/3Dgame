@@ -6,7 +6,7 @@
 /*   By: ayoub <ayoub@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 14:56:16 by ayoub             #+#    #+#             */
-/*   Updated: 2025/09/16 15:06:37 by ayoub            ###   ########.fr       */
+/*   Updated: 2025/09/16 15:39:44 by ayoub            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,11 @@ int	game_init(t_game *game, const char *cub_path)
 
 	ft_memset(game, 0, sizeof(*game));
 	rc = 0;
-	if (game->map.ceil_col.r == 0 && game->map.floor_col.r == 0
-			&& game->map.ceil_col.g == 0 && game->map.floor_col.g == 0
-			&& game->map.ceil_col.b == 0 && game->map.floor_col.b == 0)
+	if (game->map.top_col.r == 0 && game->map.floor_col.r == 0
+			&& game->map.top_col.g == 0 && game->map.floor_col.g == 0
+			&& game->map.top_col.b == 0 && game->map.floor_col.b == 0)
 	{
-		game->map.ceil_col = (t_rgba){153, 204, 255, 0};//bleu ceil sky
+		game->map.top_col = (t_rgba){153, 204, 255, 0};//bleu ceil sky
 		game->map.floor_col = (t_rgba){51, 51, 51, 0};//dark gray floor
 	}
 	game->mlx = mlx_init();

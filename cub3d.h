@@ -6,7 +6,7 @@
 /*   By: ayoub <ayoub@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/24 19:06:19 by ael-azha          #+#    #+#             */
-/*   Updated: 2025/09/16 15:01:47 by ayoub            ###   ########.fr       */
+/*   Updated: 2025/09/16 15:23:26 by ayoub            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ typedef struct s_map
 	char	**grid;     /* rectangular (padded with spaces if needed) */
 	int		width;    /* max line length */
 	int		height;   /* number of rows */
-	t_rgba	ceil_col; /* mandatory C */
+	t_rgba	top_col; /* mandatory C */
 	t_rgba	floor_col;/* mandatory F */
 	char	*tex_no;   /* file path from .cub */
 	char	*tex_so;
