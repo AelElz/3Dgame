@@ -6,7 +6,7 @@
 /*   By: ayoub <ayoub@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/24 19:06:19 by ael-azha          #+#    #+#             */
-/*   Updated: 2025/09/16 15:23:26 by ayoub            ###   ########.fr       */
+/*   Updated: 2025/09/18 14:26:01 by ayoub            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@
   #define K_D      2
   #define K_LEFT   123
   #define K_RIGHT  124
+  #define PI 3.14159265358979323846
   #define MLX_LOOP_END(mlx_ptr) mlx_loop_end(mlx_ptr)
 
 #elif defined(__linux__)
@@ -182,10 +183,11 @@ void	game_free(t_game *app);
 int		game_run(t_game *app);
 
 //events / hooks
-int	key_down(int key, t_game *app);
-int	key_up(int key, t_game *app);
-int	win_close(t_game *app);
-int	loop_hook(t_game *app);
+void	mlx_loop_end(void *mlx_ptr);
+int		key_down(int key, t_game *app);
+int		key_up(int key, t_game *app);
+int		win_close(t_game *app);
+int		loop_hook(t_game *app);
 
 //movement / collision
 int		map_is_wall(const t_map *m, int mx, int my);

@@ -6,7 +6,7 @@
 /*   By: ayoub <ayoub@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 15:15:00 by ayoub             #+#    #+#             */
-/*   Updated: 2025/09/16 15:26:12 by ayoub            ###   ########.fr       */
+/*   Updated: 2025/09/18 14:12:53 by ayoub            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,9 @@ void	draw_frame(t_game *game)
 		while (x < game->frame.wight)
 		{
 			if (y < game->frame.height / 2)
-				my_mlx_pixel_put(&game, x, y, top);
+				my_mlx_pixel_put(&game->frame, x, y, top);
 			else
-				my_mlx_pixel_put(&game, x, y, floor);
+				my_mlx_pixel_put(&game->frame, x, y, floor);
 			x++;
 		}
 		y++;

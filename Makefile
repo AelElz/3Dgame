@@ -28,7 +28,11 @@ OBJ_DIR = obj
 
 SRCS    =	$(SRC_DIR)/cub3d.c\
 			$(SRC_DIR)/game_init.c\
-			$(SRC_DIR)/events.c
+			$(SRC_DIR)/events.c\
+			$(SRC_DIR)/move.c\
+			$(SRC_DIR)/draw.c\
+			$(SRC_DIR)/ray.c\
+			$(SRC_DIR)/img.c
 
 OBJS    = $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 

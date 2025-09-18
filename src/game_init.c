@@ -6,7 +6,7 @@
 /*   By: ayoub <ayoub@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 14:56:16 by ayoub             #+#    #+#             */
-/*   Updated: 2025/09/16 15:39:44 by ayoub            ###   ########.fr       */
+/*   Updated: 2025/09/18 14:40:34 by ayoub            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void	set_player_spawn(t_game *game)
 	game->player.rot_spd = 0.05;
 	cam_make_plane(&game->player, FOV_DEG);
 }
+
 int	game_init(t_game *game, const char *cub_path)
 {
 	int	rc;
@@ -62,18 +63,14 @@ int	game_init(t_game *game, const char *cub_path)
 		game->map.floor_col = (t_rgba){51, 51, 51, 0};//dark gray floor
 	}
 	game->mlx = mlx_init();
-	if (!game->mlx)
-		return (err("mlx init failed"));
 	game->win = mlx_new_window(game->mlx, WIN_W, WIN_H, "cub3D");
-	if (!game->win)
-		return (err("mlx new window failed"));
 	mlx_hook(game->win, 2, 1L<<0, key_down, game);
 	mlx_hook(game->win, 3, 1L<<1, key_up, game);
 	mlx_hook(game->win, 17, 0, win_close, game);
-	mlx_loop_hook(game->win, loop_hook, game);
+	mlx_loop_hook(game->mlx, loop_hook, game);
 	rc = img_new(game, &game->frame, WIN_W, WIN_H);
 	if (rc != 0)
-		return (err("frame create failed"));
+		return (printf("frame create failed\n"));
 	set_player_spawn(game);
 	game->running = true;
 	return (0);
@@ -82,7 +79,7 @@ int	game_init(t_game *game, const char *cub_path)
 int	game_run(t_game *game)
 {
 	if (!game->mlx || !game->win)
-		return (err("invalid game state"));
+		return (printf("invalid game\n"));
 	mlx_loop(game->mlx);
 	return (0);
 }

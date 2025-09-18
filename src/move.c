@@ -6,7 +6,7 @@
 /*   By: ayoub <ayoub@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 13:40:33 by ayoub             #+#    #+#             */
-/*   Updated: 2025/09/18 14:00:00 by ayoub            ###   ########.fr       */
+/*   Updated: 2025/09/18 14:38:13 by ayoub            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,27 @@ void	move_fwd(t_game *game, double dist)
 	try_to_move(game, newX, newY);
 }
 
-void	move_right(t_game *game, double dist)
+void	move_back(t_game *game, double dist)
 {
 	double	newX;
 	double	newY;
 
 	newX = game->player.pos.x + game->player.dir.y * dist;
 	newY = game->player.pos.y - game->player.dir.x * dist;
+	try_to_move(game, newX, newY);
+}
+
+void move_left(t_game *game, double dist)
+{
+	double newX = game->player.pos.x - game->player.dir.y * dist;
+	double newY = game->player.pos.y + game->player.dir.x * dist;
+	try_to_move(game, newX, newY);
+}
+
+void move_right(t_game *game, double dist)
+{
+	double newX = game->player.pos.x + game->player.dir.y * dist;
+	double newY = game->player.pos.y - game->player.dir.x * dist;
 	try_to_move(game, newX, newY);
 }
 

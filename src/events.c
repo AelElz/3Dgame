@@ -6,11 +6,16 @@
 /*   By: ayoub <ayoub@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 16:39:05 by ayoub             #+#    #+#             */
-/*   Updated: 2025/09/16 15:04:13 by ayoub            ###   ########.fr       */
+/*   Updated: 2025/09/18 14:39:38 by ayoub            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
+
+void	mlx_loop_end(void *mlx_ptr)
+{
+	(void)mlx_ptr;
+}
 
 int	win_close(t_game *game)
 {
@@ -69,9 +74,9 @@ int	loop_hook(t_game *game)
 	if (game->input.s)
 		move_back(game, steps);
 	if (game->input.a)
-		move_left(game, steps);
+	 	move_left(game, steps);
 	if (game->input.d)
-		move_right(game, steps);
+	 	move_right(game, steps);
 	if (game->input.left)
 		turn_left(game, rotation);
 	if (game->input.right)
