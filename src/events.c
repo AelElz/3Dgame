@@ -6,7 +6,7 @@
 /*   By: ayoub <ayoub@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 16:39:05 by ayoub             #+#    #+#             */
-/*   Updated: 2025/09/18 14:39:38 by ayoub            ###   ########.fr       */
+/*   Updated: 2025/11/01 17:26:18 by ayoub            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,6 @@ int	loop_hook(t_game *game)
 		turn_left(game, rotation);
 	if (game->input.right)
 		turn_right(game, rotation);
-	draw_frame(game);
+	render_frame(game);
 	return (0);
 }

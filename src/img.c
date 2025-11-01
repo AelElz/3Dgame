@@ -6,7 +6,7 @@
 /*   By: ayoub <ayoub@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 14:16:07 by ayoub             #+#    #+#             */
-/*   Updated: 2025/09/18 14:37:16 by ayoub            ###   ########.fr       */
+/*   Updated: 2025/09/21 12:20:45 by ayoub            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	img_new(t_game *game, t_img *dst, int width, int height)
 	dst->img = mlx_new_image(game->mlx, width, height);
 	dst->pixels = mlx_get_data_addr(dst->img, &dst->bpp, &dst->line_len,
 		&dst->endian);
-	dst->wight = width;
+	dst->width = width;
 	dst->height = height;
 	return (0);
 }

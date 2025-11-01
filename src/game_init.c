@@ -6,13 +6,13 @@
 /*   By: ayoub <ayoub@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 14:56:16 by ayoub             #+#    #+#             */
-/*   Updated: 2025/09/18 14:40:34 by ayoub            ###   ########.fr       */
+/*   Updated: 2025/11/01 17:16:29 by ayoub            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void	set_player_spawn(t_game *game)
+void	set_player_spawn(t_game *game)//had function in case 3gezty dir spawn fil parsin
 {
 	if (game->map.spawn.x == 0 && game->map.spawn.y == 0 &&
 		game->map.spawn_dir == 0)
@@ -91,11 +91,11 @@ void	game_free(t_game *game)
 	img_free(game, &game->tex.we);
 	img_free(game, &game->tex.ea);
 	img_free(game, &game->frame);
-	if (game->win)
-		mlx_destroy_window(game->mlx, game->win);
-#ifdef __linux__
+ 	 if (game->win)
+ 	 	mlx_destroy_window(game->mlx, game->win);
+  #ifdef __linux__
 	if (game->mlx)
-		mlx_destroy_display(game->mlx);//hado for la khdemt b linux
+		mlx_destroy_display(game->mlx, game->win);//hado for la khdemt b linux
 #endif
 
 	//mol parsin free map fi had lblasa !!!!

@@ -6,7 +6,7 @@
 /*   By: ayoub <ayoub@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/24 19:06:19 by ael-azha          #+#    #+#             */
-/*   Updated: 2025/09/18 14:26:01 by ayoub            ###   ########.fr       */
+/*   Updated: 2025/11/01 17:26:45 by ayoub            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 #include <math.h>
 
 #if defined(__APPLE__)
-  #include "minilibx_mac/mlx.h"
+  #include "mlx/mlx.h"
   #define K_ESC    53
   #define K_W      13
   #define K_A      0
@@ -92,7 +92,7 @@ typedef struct s_img
 	int     bpp;
 	int     line_len;
 	int     endian;
-	int     wight;
+	int     width;
 	int     height;
 }			t_img;
 
@@ -199,7 +199,7 @@ void	turn_left(t_game *app, double ang);
 void	turn_right(t_game *app, double ang);
 
 //rendering
-void	draw_frame(t_game *app);
+void	render_frame(t_game *app);
 void	draw_floor_ceil(t_game *app);
 void	draw_wall(t_game *app, int x, int top, int bot,
                 const t_img *tex, int tex_x, int side);

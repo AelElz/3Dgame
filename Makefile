@@ -13,7 +13,7 @@ ifeq ($(UNAME_S), Linux)
 endif  
 
 ifeq ($(UNAME_S), Darwin)
-	MLX_DIR = ./minilibx_mac
+	MLX_DIR = ./mlx
 	MLX     = -L$(MLX_DIR) -lmlx -framework OpenGL -framework AppKit
 endif
 
