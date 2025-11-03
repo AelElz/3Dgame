@@ -6,7 +6,7 @@
 /*   By: ayoub <ayoub@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 14:56:16 by ayoub             #+#    #+#             */
-/*   Updated: 2025/11/03 20:33:17 by ayoub            ###   ########.fr       */
+/*   Updated: 2025/11/03 22:48:23 by ayoub            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,26 +98,22 @@ int game_init(t_game *game, const char *cub_path)
 
     ft_memset(game, 0, sizeof(*game));
     set_defaults_if_empty(game);
-
     build_fallback_map(game);
-
     game->mlx = mlx_init();
     if (!game->mlx)
         return (printf("mlx_init failed\n"), 1);
-
-    game->win = mlx_new_window(game->mlx, WIN_W, WIN_H, "cub3D");
+    game->win = mlx_new_window(game->mlx, WIN_W, WIN_H, "lo3ba_3d");
     if (!game->win)
         return (printf("mlx_new_window failed\n"), 1);
-
+		
     mlx_hook(game->win, 2, 1L<<0, key_down, game);
     mlx_hook(game->win, 3, 1L<<1, key_up, game);
     mlx_hook(game->win, 17, 0,     win_close, game);
     mlx_loop_hook(game->mlx, loop_hook, game);
-
+	
     rc = img_new(game, &game->frame, WIN_W, WIN_H);
     if (rc != 0 || !game->frame.img || !game->frame.pixels)
         return (printf("frame create failed\n"), 1);
-
     set_player_spawn(game);
     game->running = true;
     return (0);
