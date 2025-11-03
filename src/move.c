@@ -6,104 +6,99 @@
 /*   By: ayoub <ayoub@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 13:40:33 by ayoub             #+#    #+#             */
-/*   Updated: 2025/11/01 17:53:23 by ayoub            ###   ########.fr       */
+/*   Updated: 2025/11/03 20:36:00 by ayoub            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-int	map_is_wall(const t_map *map, int mapX, int mapY)
+int	map_is_wall(const t_map *map, int mx, int my)
 {
-	if (mapY < 0 || mapX < 0 || mapY >= map->height || mapX >= map->width)
+	if (my < 0 || mx < 0 || my >= map->height || mx >= map->width)
 		return (1);
-	if (map->grid[mapY][mapX] == '1' || map->grid[mapY][mapX] == ' ')
-		return (1);
-	return (0);
+	return (map->grid[my][mx] == '1' || map->grid[my][mx] == ' ');
 }
 
-void	try_to_move(t_game *game, double newX, double newY)
+static int can_move_to(const t_map *map, double x, double y)
 {
-	int	colomX;
-	int	colomY;
+	const double r = 0.20;
+	int cx = (int)(x);
+	int cy = (int)(y);
 
-	colomX = (int)newX;
-	colomY = (int)newY;
-	if (!map_is_wall(&game->map, colomX, colomY))
+	if (map_is_wall(map, cx, cy))
+		return (0);
+
+	if (map_is_wall(map, (int)(x - r), cy)) return (0);
+	if (map_is_wall(map, (int)(x + r), cy)) return (0);
+	if (map_is_wall(map, cx, (int)(y - r))) return (0);
+	if (map_is_wall(map, cx, (int)(y + r))) return (0);
+
+	return (1);
+}
+
+static void try_move(t_game *game, double newX, double newY)
+{
+	if (can_move_to(&game->map, newX, game->player.pos.y))
+		game->player.pos.x = newX;
+
+	if (can_move_to(&game->map, game->player.pos.x, newY))
 		game->player.pos.y = newY;
 }
 
 void	move_fwd(t_game *game, double dist)
 {
-	double	newX;
-	double	newY;
-
-	newX = game->player.pos.x - game->player.dir.y * dist;
-	newY = game->player.pos.y + game->player.dir.x * dist;
-	try_to_move(game, newX, newY);
+	const double nx = game->player.pos.x + game->player.dir.x * dist;
+	const double ny = game->player.pos.y + game->player.dir.y * dist;
+	try_move(game, nx, ny);
 }
 
 void	move_back(t_game *game, double dist)
 {
-	double	newX;
-	double	newY;
-
-	newX = game->player.pos.x + game->player.dir.y * dist;
-	newY = game->player.pos.y - game->player.dir.x * dist;
-	try_to_move(game, newX, newY);
+	const double nx = game->player.pos.x - game->player.dir.x * dist;
+	const double ny = game->player.pos.y - game->player.dir.y * dist;
+	try_move(game, nx, ny);
 }
 
-void move_left(t_game *game, double dist)
+void	move_left(t_game *game, double dist)
 {
-	double newX = game->player.pos.x - game->player.dir.y * dist;
-	double newY = game->player.pos.y + game->player.dir.x * dist;
-	try_to_move(game, newX, newY);
+	const double nx = game->player.pos.x - game->player.plane.x * dist;
+	const double ny = game->player.pos.y - game->player.plane.y * dist;
+	try_move(game, nx, ny);
 }
 
-void move_right(t_game *game, double dist)
+void	move_right(t_game *game, double dist)
 {
-	double newX = game->player.pos.x + game->player.dir.y * dist;
-	double newY = game->player.pos.y - game->player.dir.x * dist;
-	try_to_move(game, newX, newY);
+	const double nx = game->player.pos.x + game->player.plane.x * dist;
+	const double ny = game->player.pos.y + game->player.plane.y * dist;
+	try_move(game, nx, ny);
 }
 
-void	turn_left(t_game *game, double angl)
+void	turn_left(t_game *game, double ang)
 {
-	double	oldX;
-	double	oldY;
-	double	cosu;
-	double	sinu;
+	const double c = cos(ang);
+	const double s = sin(ang);
+	double ox, oy;
 
-	oldX = game->player.dir.x;
-	oldY = game->player.dir.y;
-	cosu = cos(-angl);
-	sinu = sin(-angl);
-	
-	game->player.dir.x = oldX * cosu - oldY * sinu;
-	game->player.dir.y = oldX * sinu + oldY * cosu;
+	ox = game->player.dir.x; oy = game->player.dir.y;
+	game->player.dir.x = ox * c - oy * s;
+	game->player.dir.y = ox * s + oy * c;
 
-	oldX = game->player.plane.x;
-	oldY = game->player.plane.y;
-	game->player.plane.x = oldX * cosu - oldY * sinu;
-	game->player.plane.y = oldX * sinu + oldY * cosu;
+	ox = game->player.plane.x; oy = game->player.plane.y;
+	game->player.plane.x = ox * c - oy * s;
+	game->player.plane.y = ox * s + oy * c;
 }
 
-void	turn_right(t_game *game, double angl)
+void	turn_right(t_game *game, double ang)
 {
-	double	oldX;
-	double	oldY;
-	double	cosu;
-	double	sinu;
+	const double c = cos(-ang);
+	const double s = sin(-ang);
+	double ox, oy;
 
-	oldX = game->player.dir.x;
-	oldY = game->player.dir.y;
-	cosu = cos(angl);
-	sinu = sin(angl);
+	ox = game->player.dir.x; oy = game->player.dir.y;
+	game->player.dir.x = ox * c - oy * s;
+	game->player.dir.y = ox * s + oy * c;
 
-	game->player.dir.x = oldX * cosu - oldY * sinu;
-	game->player.dir.y = oldX * sinu - oldY * cosu;
-
-	oldX = game->player.plane.x;
-	oldY = game->player.plane.y;
-	game->player.plane.x = oldX * cosu - oldY * sinu;
-	game->player.plane.y = oldX * sinu + oldY * cosu;
+	ox = game->player.plane.x; oy = game->player.plane.y;
+	game->player.plane.x = ox * c - oy * s;
+	game->player.plane.y = ox * s + oy * c;
 }

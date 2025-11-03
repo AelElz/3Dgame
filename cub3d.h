@@ -6,7 +6,7 @@
 /*   By: ayoub <ayoub@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/24 19:06:19 by ael-azha          #+#    #+#             */
-/*   Updated: 2025/11/01 17:26:45 by ayoub            ###   ########.fr       */
+/*   Updated: 2025/11/03 20:32:12 by ayoub            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@
 #include <stdbool.h>
 #include <string.h>
 #include <math.h>
+#include <string.h>
 
 #if defined(__APPLE__)
   #include "mlx/mlx.h"
