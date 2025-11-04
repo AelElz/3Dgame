@@ -6,7 +6,7 @@
 /*   By: ayoub <ayoub@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 15:15:00 by ayoub             #+#    #+#             */
-/*   Updated: 2025/11/04 14:28:55 by ayoub            ###   ########.fr       */
+/*   Updated: 2025/11/04 14:49:03 by ayoub            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ void	draw_wall(t_game *g, int x, int top, int bot,
 	}
 }
 
-void draw_floor_ceil(t_game *g)
+void	draw_floor_ceil(t_game *g)
 {
 	const int ceilc  = color_pack(g->map.top_col);
 	const int floorc = color_pack(g->map.floor_col);
@@ -115,11 +115,11 @@ void	render_frame(t_game *game)
 	draw_floor_ceil(game);
 	for (x = 0; x < game->frame.width; ++x)
 	{
-		t_ray r;
-		int line_h, top, bot;
-		const t_img *tex = NULL;
-		int tex_x;
-		double wall_x;
+		t_ray	r;
+		int		line_h, top, bot;
+		const	t_img *tex = NULL;
+		int		tex_x;
+		double	wall_x;
 
 		ray_init(&r, &game->player, x);
 		ray_step_setup(&r, &game->player);
@@ -137,9 +137,10 @@ void	render_frame(t_game *game)
 		wall_x -= floor(wall_x);
 
 		tex = ray_choose_tex(&game->tex, &r);
-		if (!tex || tex->width <= 0) {
+		if (!tex || tex->width <= 0)
+		{
 			draw_wall(game, x, top, bot, NULL, 0, r.side);
-			continue;
+			continue ;
 		}
 		tex_x = (int)(wall_x * (double)tex->width);
 

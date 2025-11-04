@@ -6,13 +6,13 @@
 /*   By: ayoub <ayoub@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 16:39:05 by ayoub             #+#    #+#             */
-/*   Updated: 2025/11/04 14:27:22 by ayoub            ###   ########.fr       */
+/*   Updated: 2025/11/04 14:41:06 by ayoub            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-static void request_quit(t_game *game)
+void	request_quit(t_game *game)
 {
 	game->running = false;
 	game_free(game);
