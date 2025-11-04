@@ -6,7 +6,7 @@
 /*   By: ayoub <ayoub@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 15:15:00 by ayoub             #+#    #+#             */
-/*   Updated: 2025/11/04 14:49:03 by ayoub            ###   ########.fr       */
+/*   Updated: 2025/11/04 15:32:07 by ayoub            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,20 +26,29 @@ void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 
 int	color_pack(t_rgba c)
 {
-	if (c.r < 0) c.r = 0; if (c.r > 255) c.r = 255;
-	if (c.g < 0) c.g = 0; if (c.g > 255) c.g = 255;
-	if (c.b < 0) c.b = 0; if (c.b > 255) c.b = 255;
+	if (c.r < 0)
+		c.r = 0;
+	if (c.r > 255)
+		c.r = 255;
+	if (c.g < 0)
+		c.g = 0;
+	if (c.g > 255)
+		c.g = 255;
+	if (c.b < 0)
+		c.b = 0;
+	if (c.b > 255)
+		c.b = 255;
 	return ((c.r << 16) | (c.g << 8) | c.b);
 }
 
 unsigned int	tex_get_pixel(const t_img *tex, int tx, int ty)
 {
-	const char *ptr;
-	unsigned int c;
+	char			*ptr;
+	unsigned int	c;
 
 	if (!tex || !tex->pixels || tx < 0 || ty < 0
 		|| tx >= tex->width || ty >= tex->height)
-		return 0;
+		return (0);
 	ptr = tex->pixels + (ty * tex->line_len + tx * (tex->bpp / 8));
 	c = *(const unsigned int *)ptr;
 	return (c & 0x00FFFFFF);
@@ -47,10 +56,12 @@ unsigned int	tex_get_pixel(const t_img *tex, int tx, int ty)
 
 int	tex_sample_scaled_y(int y, int top, int bot, int tex_h)
 {
-	int	denom = bot - top + 1;
-	int	pos = y - top;
+	int	denom;
+	int	pos;
 	int	ty;
 
+	denom = bot - top + 1;
+	pos = y - top;
 	if (denom <= 0)
 		return (0);
 	ty = (pos * tex_h) / denom;
@@ -64,7 +75,12 @@ int	tex_sample_scaled_y(int y, int top, int bot, int tex_h)
 void	draw_wall(t_game *g, int x, int top, int bot,
 			   const t_img *tex, int tex_x, int side)
 {
-	int	y;
+	int				y;
+	int				ty;
+	unsigned int	col;
+	int				r;
+	int				gch;
+	int				b;
 
 	if (top < 0)
 		top = 0;
@@ -73,7 +89,7 @@ void	draw_wall(t_game *g, int x, int top, int bot,
 	if (!tex || !tex->pixels)
 	{
 		for (y = top; y <= bot; ++y) my_mlx_pixel_put(&g->frame, x, y, 0x808080);
-		return;
+		return ;
 	}
 	if (tex_x < 0)
 		tex_x = 0;
@@ -81,12 +97,13 @@ void	draw_wall(t_game *g, int x, int top, int bot,
 		tex_x = tex->width - 1;
 	for (y = top; y <= bot; ++y)
 	{
-		int ty = tex_sample_scaled_y(y, top, bot, tex->height);
-		unsigned int col = tex_get_pixel(tex, tex_x, ty);
-
+		ty = tex_sample_scaled_y(y, top, bot, tex->height);
+		col = tex_get_pixel(tex, tex_x, ty);
 		if (side == 1)
 		{
-			int r = (col >> 16) & 0xFF, gch = (col >> 8) & 0xFF, b = col & 0xFF;
+			r = (col >> 16) & 0xFF;
+			gch = (col >> 8) & 0xFF;
+			b = col & 0xFF;
 			r = (r * 70) / 100; gch = (gch * 70) / 100; b = (b * 70) / 100;
 			col = (unsigned)((r << 16) | (gch << 8) | b);
 		}
@@ -96,10 +113,12 @@ void	draw_wall(t_game *g, int x, int top, int bot,
 
 void	draw_floor_ceil(t_game *g)
 {
-	const int ceilc  = color_pack(g->map.top_col);
-	const int floorc = color_pack(g->map.floor_col);
+	int	ceilc;
+	int	floorc;
 	int y, x, half = g->frame.height / 2;
 
+	ceilc = color_pack(g->map.top_col);
+	floorc = color_pack(g->map.floor_col);
 	for (y = 0; y < g->frame.height; ++y)
 	{
 		const int col = (y < half) ? ceilc : floorc;
