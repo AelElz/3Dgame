@@ -6,7 +6,7 @@
 /*   By: ayoub <ayoub@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 15:15:00 by ayoub             #+#    #+#             */
-/*   Updated: 2025/11/03 20:37:12 by ayoub            ###   ########.fr       */
+/*   Updated: 2025/11/04 14:28:55 by ayoub            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,10 @@ void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 {
 	char	*dst;
 
-	if (!img || !img->pixels) return;
+	if (!img || !img->pixels)
+		return ;
 	if (x < 0 || y < 0 || x >= img->width || y >= img->height)
-		return;
+		return ;
 	dst = img->pixels + (y * img->line_len + x * (img->bpp / 8));
 	*(unsigned int *)dst = (unsigned int)color;
 }
@@ -31,7 +32,7 @@ int	color_pack(t_rgba c)
 	return ((c.r << 16) | (c.g << 8) | c.b);
 }
 
-static unsigned int tex_get_pixel(const t_img *tex, int tx, int ty)
+unsigned int	tex_get_pixel(const t_img *tex, int tx, int ty)
 {
 	const char *ptr;
 	unsigned int c;
@@ -44,7 +45,7 @@ static unsigned int tex_get_pixel(const t_img *tex, int tx, int ty)
 	return (c & 0x00FFFFFF);
 }
 
-static int tex_sample_scaled_y(int y, int top, int bot, int tex_h)
+int	tex_sample_scaled_y(int y, int top, int bot, int tex_h)
 {
 	int	denom = bot - top + 1;
 	int	pos = y - top;
@@ -60,20 +61,24 @@ static int tex_sample_scaled_y(int y, int top, int bot, int tex_h)
 	return (ty);
 }
 
-void draw_wall(t_game *g, int x, int top, int bot,
+void	draw_wall(t_game *g, int x, int top, int bot,
 			   const t_img *tex, int tex_x, int side)
 {
-	int y;
+	int	y;
 
-	if (top < 0) top = 0;
-	if (bot >= g->frame.height) bot = g->frame.height - 1;
-	if (!tex || !tex->pixels) {
+	if (top < 0)
+		top = 0;
+	if (bot >= g->frame.height)
+		bot = g->frame.height - 1;
+	if (!tex || !tex->pixels)
+	{
 		for (y = top; y <= bot; ++y) my_mlx_pixel_put(&g->frame, x, y, 0x808080);
 		return;
 	}
-	if (tex_x < 0) tex_x = 0;
-	if (tex_x >= tex->width) tex_x = tex->width - 1;
-
+	if (tex_x < 0)
+		tex_x = 0;
+	if (tex_x >= tex->width)
+		tex_x = tex->width - 1;
 	for (y = top; y <= bot; ++y)
 	{
 		int ty = tex_sample_scaled_y(y, top, bot, tex->height);
