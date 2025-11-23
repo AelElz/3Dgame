@@ -6,7 +6,7 @@
 /*   By: ayoub <ayoub@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/24 19:06:19 by ael-azha          #+#    #+#             */
-/*   Updated: 2025/11/04 15:34:44 by ayoub            ###   ########.fr       */
+/*   Updated: 2025/11/23 22:07:23 by ayoub            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,16 @@
 
 #if defined(__APPLE__)
   #include "mlx/mlx.h"
-  #define K_ESC    53
-  #define K_W      13
-  #define K_A      0
-  #define K_S      1
-  #define K_D      2
-  #define K_LEFT   123
-  #define K_RIGHT  124
-  #define PI 3.14159265358979323846
+  #define COLLIDE_PIX 3
+  #define TILE_PX	64
+  #define K_ESC		53
+  #define K_W		13
+  #define K_A		0
+  #define K_S		1
+  #define K_D		2
+  #define K_LEFT	123
+  #define K_RIGHT	124
+  #define PI		3.14159265358979323846
   #define MLX_LOOP_END(mlx_ptr) mlx_loop_end(mlx_ptr)
 
 #elif defined(__linux__)
@@ -112,40 +114,40 @@ typedef struct s_texset
 
 typedef struct s_map 
 {
-	char	**grid;     /* rectangular (padded with spaces if needed) */
-	int		width;    /* max line length */
-	int		height;   /* number of rows */
-	t_rgba	top_col; /* mandatory C */
-	t_rgba	floor_col;/* mandatory F */
-	char	*tex_no;   /* file path from .cub */
+	char	**grid;
+	int		width;
+	int		height;
+	t_rgba	top_col;
+	t_rgba	floor_col;
+	char	*tex_no;
 	char	*tex_so;
 	char	*tex_we;
 	char	*tex_ea;
-	t_ind2	spawn;    /* (x,y) cell */
-	char	spawn_dir;/* 'N','S','E','W' */
+	t_ind2	spawn;
+	char	spawn_dir;
 }			t_map;
 
 /* player position */
 typedef struct s_player
 {
-	t_vec2d	pos;          /* world position (double) */
-	t_vec2d	dir;          /* normalized facing dir */
-	t_vec2d	plane;        /* camera plane (perp to dir), |plane|=tan(FOV/2) */
-	double	move_spd;    /* per frame */
-	double	rot_spd;     /* radians per frame */
+	t_vec2d	pos;
+	t_vec2d	dir;
+	t_vec2d	plane;
+	double	move_spd;
+	double	rot_spd;
 }			t_player;
 
 typedef struct s_ray
 {
 	t_vec2d	dir;
-	t_ind2	map;         /* map cell x,y */
-	t_vec2d	side_dist;   /* distance to first side on x/y */
-	t_vec2d	delta_dist;  /* |1/dir.x|, |1/dir.y| */
-	double	perp_dist;   /* corrected (no fisheye) */
-	int		step_x;      /* +1 or -1 */
-	int		step_y;      /* +1 or -1 */
-	int		hit;         /* 1 if wall hit */
-	int		side;        /* 0 for x-side, 1 for y-side */
+	t_ind2	map;
+	t_vec2d	side_dist;
+	t_vec2d	delta_dist;
+	double	perp_dist;
+	int		step_x;
+	int		step_y;
+	int		hit;
+	int		side;
 }			t_ray;
 
 /* user input */
@@ -172,11 +174,30 @@ typedef struct s_game
 	bool		running;
 }				t_game;
 
+/*---------------------------------init---------------------------------*/
+int		init_mlx(t_game *game);
+void	init_hooks(t_game *game);
+int		game_init(t_game *game, const char *cub_path);
+
+void	set_defaults_if_empty(t_game *game);
+
+void	game_free(t_game *game);
+int		game_run(t_game *game);
+
+void	copy_rows_to_map(t_game *g, char **rows, int h);
+void	find_spawn(t_game *g);
+void	build_fallback_map(t_game *g);
+
+void	set_spawn_dir_values(t_player *p, char dir);
+void	set_player_spawn(t_game *game);
+/*---------------------------------init---------------------------------*/
+
+
+
+
 //textures / images
 int		img_new(t_game *app, t_img *dst, int width, int height);
 void	img_free(t_game *app, t_img *img);
-int		tex_load_all(t_game *app);
-int		tex_load_file(t_game *app, t_img *dst, const char *path);
 
 //engine init / shutdown
 int		game_init(t_game *app, const char *cub_path);
@@ -190,8 +211,8 @@ int		key_up(int key, t_game *app);
 int		win_close(t_game *app);
 int		loop_hook(t_game *app);
 
-//movement / collision
 int		map_is_wall(const t_map *m, int mx, int my);
+void	try_move(t_game *game, double new_x, double new_y);
 void	move_fwd(t_game *app, double amt);
 void	move_back(t_game *app, double amt);
 void	move_left(t_game *app, double amt);
@@ -199,26 +220,43 @@ void	move_right(t_game *app, double amt);
 void	turn_left(t_game *app, double ang);
 void	turn_right(t_game *app, double ang);
 
-//rendering
+//raycasting
+void		cam_make_plane(t_player *p, double fov_deg);
+void		ray_init(t_ray *r, const t_player *p, int screen_x);
+void		ray_step_setup(t_ray *r, const t_player *p);
+void		ray_dda(t_ray *r, const t_map *m);
+void		ray_perp_dist(t_ray *r, const t_player *p);
+const t_img	*ray_choose_tex(const t_texset *tx, const t_ray *r);
+
+/*---------------------------------Rendering---------------------------------*/
+//Draw
+
+void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
 void	render_frame(t_game *app);
 void	draw_floor_ceil(t_game *app);
 void	draw_wall(t_game *app, int x, int top, int bot,
                 const t_img *tex, int tex_x, int side);
-int		tex_sample_y(int y, int top, int bot);
+
+//Draw Helper
+void	compute_line_bounds(t_game *game, t_ray *r,
+			int *top, int *bot);
+double  compute_wall_x(t_game *game, t_ray *r);
+int		compute_tex_x(const t_img *tex, t_ray *r, double wall_x);
+void	render_column(t_game *game, int x, t_ray *r, int top, int bot);
 int		color_pack(t_rgba c);
 
-//raycasting
-void	cam_make_plane(t_player *p, double fov_deg);
-void	ray_init(t_ray *r, const t_player *p, int screen_x);
-void	ray_step_setup(t_ray *r, const t_player *p);
-void	ray_dda(t_ray *r, const t_map *m);
-void	ray_perp_dist(t_ray *r, const t_player *p);
-const	t_img *ray_choose_tex(const t_texset *tx, const t_ray *r);
+//Draw_Wall
+void    		draw_wall_solid(t_game *g, int x, int top, int bot);
+int				clamp_tex_x(const t_img *tex, int tex_x);
+void			draw_wall_tex(t_game *g, int x, int top, int bot, const t_img *tex,
+				int tex_x);
+void			draw_wall(t_game *g, int x, int top, int bot,
+				const t_img *tex, int tex_x, int side);
+void			draw_floor_ceil(t_game *g);
+unsigned int	tex_get_pixel(const t_img *tex, int tx, int ty);
+int				tex_sample_scaled_y(int y, int top, int bot, int tex_h);
 
-//errors / utils
-int		err(const char *msg);
-void	*mem_xmalloc(size_t n);
-char	*str_dup0(const char *s);
+/*---------------------------------Rendering---------------------------------*/
 
 #endif
 

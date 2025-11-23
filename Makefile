@@ -27,12 +27,22 @@ SRC_DIR = src
 OBJ_DIR = obj
 
 SRCS    =	$(SRC_DIR)/cub3d.c\
-			$(SRC_DIR)/game_init.c\
 			$(SRC_DIR)/events.c\
-			$(SRC_DIR)/move.c\
-			$(SRC_DIR)/draw.c\
-			$(SRC_DIR)/ray.c\
-			$(SRC_DIR)/img.c
+			$(SRC_DIR)/img.c\
+			$(SRC_DIR)/render/draw.c\
+			$(SRC_DIR)/render/draw_helper.c\
+			$(SRC_DIR)/render/draw_wall.c\
+			$(SRC_DIR)/init_game/init_game.c\
+			$(SRC_DIR)/init_game/default_color.c\
+			$(SRC_DIR)/init_game/map_build.c\
+			$(SRC_DIR)/init_game/player_spawn.c\
+			$(SRC_DIR)/init_game/clean.c\
+			$(SRC_DIR)/move/move.c\
+			$(SRC_DIR)/move/move_check.c\
+			$(SRC_DIR)/move/move_turn.c\
+			$(SRC_DIR)/ray/ray.c\
+			$(SRC_DIR)/ray/ray_cam.c\
+			$(SRC_DIR)/ray/ray_tex.c
 
 OBJS    = $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
