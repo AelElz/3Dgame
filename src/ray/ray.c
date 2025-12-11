@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayoub <ayoub@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ael-azha <ael-azha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/22 21:30:00 by ayoub             #+#    #+#             */
-/*   Updated: 2025/11/23 22:05:17 by ayoub            ###   ########.fr       */
+/*   Updated: 2025/12/11 17:58:28 by ael-azha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 void	ray_init(t_ray *r, const t_player *p, int screen_x)
 {
-	double	camX;
-	
+	double	cam_x;
+
 	r->hit = 0;
 	r->side = 0;
-	camX = 2.0 * (double)screen_x / (double)(WIN_W - 1) - 1.0;
-	r->dir.x = p->dir.x + p->plane.x * camX;
-	r->dir.y = p->dir.y + p->plane.y * camX;
+	cam_x = 2.0 * (double)screen_x / (double)(WIN_W - 1) - 1.0;
+	r->dir.x = p->dir.x + p->plane.x * cam_x;
+	r->dir.y = p->dir.y + p->plane.y * cam_x;
 	r->map.x = (int)floor(p->pos.x);
 	r->map.y = (int)floor(p->pos.y);
 	if (r->dir.x == 0.0)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_helper.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayoub <ayoub@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ael-azha <ael-azha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/23 21:23:56 by ayoub             #+#    #+#             */
-/*   Updated: 2025/11/23 21:24:22 by ayoub            ###   ########.fr       */
+/*   Updated: 2025/12/11 17:57:44 by ael-azha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	compute_line_bounds(t_game *game, t_ray *r,
 	*bot = *top + line_h - 1;
 }
 
-double  compute_wall_x(t_game *game, t_ray *r)
+double	compute_wall_x(t_game *game, t_ray *r)
 {
 	double	wall_x;
 
@@ -46,19 +46,19 @@ int	compute_tex_x(const t_img *tex, t_ray *r, double wall_x)
 	return (tex_x);
 }
 
-void	render_column(t_game *game, int x, t_ray *r, int top, int bot)
+void	render_column(t_game *game, int x, t_ray *r)
 {
 	double		wall_x;
-	const t_img	*tex;
 	int			tex_x;
 
 	wall_x = compute_wall_x(game, r);
-	tex = ray_choose_tex(&game->tex, r);
-	if (!tex || tex->width <= 0)
+	r->tex = ray_choose_tex(&game->tex, r);
+	if (!r->tex || r->tex->width <= 0)
 	{
-		draw_wall(game, x, top, bot, NULL, 0, r->side);
+		draw_wall(game, x, r);
 		return ;
 	}
-	tex_x = compute_tex_x(tex, r, wall_x);
-	draw_wall(game, x, top, bot, tex, tex_x, r->side);
+	tex_x = compute_tex_x(r->tex, r, wall_x);
+	r->tex_x = tex_x;
+	draw_wall(game, x, r);
 }

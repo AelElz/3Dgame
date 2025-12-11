@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   img.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayoub <ayoub@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ael-azha <ael-azha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/18 14:16:07 by ayoub             #+#    #+#             */
-/*   Updated: 2025/11/04 14:41:33 by ayoub            ###   ########.fr       */
+/*   Created: 2025/12/05 13:31:25 by ael-azha          #+#    #+#             */
+/*   Updated: 2025/12/11 17:59:14 by ael-azha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	img_new(t_game *game, t_img *dst, int width, int height)
 {
 	dst->img = mlx_new_image(game->mlx, width, height);
 	dst->pixels = mlx_get_data_addr(dst->img, &dst->bpp, &dst->line_len,
-		&dst->endian);
+			&dst->endian);
 	dst->width = width;
 	dst->height = height;
 	return (0);

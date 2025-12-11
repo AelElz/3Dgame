@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayoub <ayoub@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ael-azha <ael-azha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 15:15:00 by ayoub             #+#    #+#             */
-/*   Updated: 2025/11/23 21:33:35 by ayoub            ###   ########.fr       */
+/*   Updated: 2025/12/11 17:57:55 by ael-azha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ int	tex_sample_scaled_y(int y, int top, int bot, int tex_h)
 		ty = tex_h - 1;
 	return (ty);
 }
+
 void	draw_floor_ceil(t_game *g)
 {
 	int	ceilc;
@@ -71,10 +72,10 @@ void	draw_floor_ceil(t_game *g)
 
 void	render_frame(t_game *game)
 {
-	int	x;
+	int		x;
 	t_ray	r;
-	int	top;
-	int	bot;
+	int		top;
+	int		bot;
 
 	draw_floor_ceil(game);
 	x = 0;
@@ -85,7 +86,9 @@ void	render_frame(t_game *game)
 		ray_dda(&r, &game->map);
 		ray_perp_dist(&r, &game->player);
 		compute_line_bounds(game, &r, &top, &bot);
-		render_column(game, x, &r, top, bot);
+		r.top = top;
+		r.bot = bot;
+		render_column(game, x, &r);
 		x++;
 	}
 	mlx_put_image_to_window(game->mlx, game->win, game->frame.img, 0, 0);

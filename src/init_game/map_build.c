@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_build.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayoub <ayoub@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ael-azha <ael-azha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 14:56:16 by ayoub             #+#    #+#             */
-/*   Updated: 2025/11/23 21:52:52 by ayoub            ###   ########.fr       */
+/*   Updated: 2025/12/11 17:58:02 by ael-azha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ void	copy_rows_to_map(t_game *g, char **rows, int h)
 
 void	find_spawn(t_game *g)
 {
-	int	i;
-	int	j;
+	int		i;
+	int		j;
 	char	c;
 
 	i = -1;
@@ -58,15 +58,14 @@ void	find_spawn(t_game *g)
 
 void	build_fallback_map(t_game *g)
 {
-	char	*rows[] =
-	{
+	char	*rows[] = {
 		"11111111111111111",
 		"10000000000000001",
 		"1000000E000000001",
 		"10000001100000001",
 		"11111111111111111"
 	};
-	int	h;
+	int		h;
 
 	if (g->map.grid)
 		return ;

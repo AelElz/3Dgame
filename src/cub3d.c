@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayoub <ayoub@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ael-azha <ael-azha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/26 10:40:21 by ael-azha          #+#    #+#             */
-/*   Updated: 2025/11/04 14:48:38 by ayoub            ###   ########.fr       */
+/*   Updated: 2025/12/11 17:51:11 by ael-azha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "cub3d.h"
 
 int	ft_error(void)
 {
@@ -18,7 +18,7 @@ int	ft_error(void)
 	return (1);
 }
 
-int main(int ac, char **av)
+int	main(int ac, char **av)
 {
 	t_game	game;
 	int		rc;

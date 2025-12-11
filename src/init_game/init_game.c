@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_game.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayoub <ayoub@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ael-azha <ael-azha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/23 21:45:22 by ayoub             #+#    #+#             */
-/*   Updated: 2025/11/23 21:45:41 by ayoub            ###   ########.fr       */
+/*   Updated: 2025/12/11 17:59:52 by ael-azha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	init_hooks(t_game *game)
 	mlx_loop_hook(game->mlx, loop_hook, game);
 }
 
-int game_init(t_game *game, const char *cub_path)
+int	game_init(t_game *game, const char *cub_path)
 {
 	int	rc;
 

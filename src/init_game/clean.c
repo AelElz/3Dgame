@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayoub <ayoub@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ael-azha <ael-azha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/23 21:45:58 by ayoub             #+#    #+#             */
-/*   Updated: 2025/11/23 21:46:06 by ayoub            ###   ########.fr       */
+/*   Updated: 2025/12/11 17:58:15 by ael-azha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,12 @@ void	game_free(t_game *game)
 	}
 	if (game->win)
 		mlx_destroy_window(game->mlx, game->win);
-#ifdef __linux__
 	if (game->mlx)
+	{
 		mlx_destroy_display(game->mlx);
-#endif
-	game->mlx = NULL;
+		free(game->mlx);
+		game->mlx = NULL;
+	}
 }
 
 int	game_run(t_game *game)
