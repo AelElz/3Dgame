@@ -46,7 +46,19 @@ SRCS    =	$(SRC_DIR)/cub3d.c\
 			$(SRC_DIR)/move/move_turn.c\
 			$(SRC_DIR)/ray/ray.c\
 			$(SRC_DIR)/ray/ray_cam.c\
-			$(SRC_DIR)/ray/ray_tex.c
+			$(SRC_DIR)/ray/ray_tex.c\
+			$(SRC_DIR)/parsing/parsing_utils1.c\
+			$(SRC_DIR)/parsing/parsing_utils2.c\
+			$(SRC_DIR)/parsing/colors/parsing.colors.c\
+			$(SRC_DIR)/parsing/colors/parsing.colors2.c\
+			$(SRC_DIR)/parsing/maps/parsing_map1.c\
+			$(SRC_DIR)/parsing/maps/parsing_map2.c\
+			$(SRC_DIR)/parsing/maps/parsing_map3.c\
+			$(SRC_DIR)/parsing/maps/parsing_map4.c\
+			$(SRC_DIR)/parsing/player/parcing_player.c\
+			$(SRC_DIR)/parsing/textures/parsing_textures.c\
+			$(SRC_DIR)/parsing/textures/parsing_textures2.c\
+			$(SRC_DIR)/parsing/textures/parsing_textures3.c
 
 OBJS    = $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 

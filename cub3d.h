@@ -6,7 +6,7 @@
 /*   By: ael-azha <ael-azha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 13:31:17 by ael-azha          #+#    #+#             */
-/*   Updated: 2025/12/11 17:57:03 by ael-azha         ###   ########.fr       */
+/*   Updated: 2025/12/11 18:47:15 by ael-azha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,14 @@
 # define FOV_DEG 60.0
 # define TEX_W 64
 # define TEX_H 64
+# define TILE 64
+
+typedef struct s_player_info
+{
+	double	player_x;
+	double	player_y;
+	double	angle;
+}	t_player_info;
 
 typedef struct s_vec2d
 {
@@ -91,17 +99,33 @@ typedef struct s_texset
 
 typedef struct s_map
 {
-	char	**grid;
-	int		width;
-	int		height;
-	t_rgba	top_col;
-	t_rgba	floor_col;
-	char	*tex_no;
-	char	*tex_so;
-	char	*tex_we;
-	char	*tex_ea;
-	t_ind2	spawn;
-	char	spawn_dir;
+	char			**grid;
+	char			**map;
+	int				width;
+	int				height;
+	t_rgba			top_col;
+	t_rgba			floor_col;
+	char			*tex_no;
+	char			*tex_so;
+	char			*tex_we;
+	char			*tex_ea;
+	char			*no_texture;
+	char			*so_texture;
+	char			*we_texture;
+	char			*ea_texture;
+	t_img			north_tex;
+	t_img			south_tex;
+	t_img			west_tex;
+	t_img			east_tex;
+	t_img			img;
+	void			*mlx;
+	void			*win;
+	t_ind2			spawn;
+	char			spawn_dir;
+	char			*floor_color;
+	char			*ceiling_color;
+	t_player_info	player;
+	int				player_set;
 }	t_map;
 
 typedef struct s_player

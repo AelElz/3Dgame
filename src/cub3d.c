@@ -6,11 +6,11 @@
 /*   By: ael-azha <ael-azha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/26 10:40:21 by ael-azha          #+#    #+#             */
-/*   Updated: 2025/12/11 17:51:11 by ael-azha         ###   ########.fr       */
+/*   Updated: 2025/12/11 18:45:01 by ael-azha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../cub3d.h"
 
 int	ft_error(void)
 {
