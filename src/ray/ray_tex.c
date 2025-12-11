@@ -1,30 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   close.c                                            :+:      :+:    :+:   */
+/*   ray_tex.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-azha <ael-azha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ayoub <ayoub@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/26 15:11:43 by ael-azha          #+#    #+#             */
-/*   Updated: 2025/08/26 17:29:56 by ael-azha         ###   ########.fr       */
+/*   Created: 2025/11/23 22:04:45 by ayoub             #+#    #+#             */
+/*   Updated: 2025/11/23 22:07:32 by ayoub            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../cub3d.h"
 
-int	handle_destroy(t_vars *vars)
+const t_img	*ray_choose_tex(const t_texset *tx, const t_ray *ray)
 {
-	mlx_destroy_window(vars->mlx, vars->win);
-	exit(0);
-	return (0);
-}
-
-int	mlx_close(int keycode, t_vars *vars)
-{
-	if (keycode == 65307)
+	if (ray->side == 0)
 	{
-		mlx_destroy_window(vars->mlx, vars->win);
-		exit(0);
+		if (ray->dir.x > 0.0)
+			return (&tx->we);
+		return (&tx->ea);
 	}
-	return (0);
+	if (ray->dir.y > 0.0)
+		return (&tx->no);
+	return (&tx->so);
 }
