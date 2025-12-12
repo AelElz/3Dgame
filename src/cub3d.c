@@ -19,6 +19,20 @@ int	ft_error(void)
 	return (1);
 }
 
+int	reading_map(char *input)
+{
+	int	fd;
+
+	fd = open(input, O_RDONLY);
+	if (fd < 0)
+	{
+		printf("Error: Can't open the file\n");
+		return (1);
+	}
+	printf("%d\n%s", fd, get_next_line(fd));
+	return (0);
+}
+
 int main(int ac, char **av)
 {
 	t_game	game;
@@ -26,6 +40,9 @@ int main(int ac, char **av)
 
 	if (ac != 2)
 		return (ft_error());
+	
+	if (reading_map(av[1]))
+		return (1);
 	ft_memset(&game, 0, sizeof(game));
 	rc = game_init(&game, av[1]);
 	if (rc != 0)

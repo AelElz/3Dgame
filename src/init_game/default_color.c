@@ -21,7 +21,7 @@ void	set_defaults_if_empty(t_game *game)
 	fc = (int *)&game->map.floor_col;
 	if (*tc == 0 && *fc == 0)
 	{
-		game->map.top_col = (t_rgba){51, 51, 51, 0};
-		game->map.floor_col = (t_rgba){153, 204, 255, 0};
+		game->map.top_col = (t_rgba){153, 204, 255, 0};
+		game->map.floor_col = (t_rgba){51, 51, 51, 0};
 	}
 }

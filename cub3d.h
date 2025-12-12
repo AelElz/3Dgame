@@ -23,6 +23,7 @@
 #define CEILCLR 0x0099CCFF  // light sky
 #define FLRCLR  0x00333333  // dark floor
 
+// #include "src/get_next_line/get_next_line.h"
 #include "includes/libft.h"
 #include <stdlib.h>
 #include <stdio.h>
@@ -31,6 +32,7 @@
 #include <string.h>
 #include <math.h>
 #include <string.h>
+#include <fcntl.h>
 
 #if defined(__APPLE__)
   #include "mlx/mlx.h"
@@ -62,8 +64,8 @@
   #error "Unsupported platform: need __APPLE__ or __linux__"
 #endif
 
-# define WIN_W  1024
-# define WIN_H  768
+# define WIN_W  1024/2
+# define WIN_H  768/2
 # define FOV_DEG 60.0
 # define TEX_W 64
 # define TEX_H 64
@@ -174,6 +176,10 @@ typedef struct s_game
 	t_input		input;
 	bool		running;
 }				t_game;
+
+/*---------------------------------parsing---------------------------------*/
+char		*get_next_line(int fd);
+
 
 /*---------------------------------init---------------------------------*/
 int		init_mlx(t_game *game);

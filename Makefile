@@ -42,7 +42,9 @@ SRCS    =	$(SRC_DIR)/cub3d.c\
 			$(SRC_DIR)/move/move_turn.c\
 			$(SRC_DIR)/ray/ray.c\
 			$(SRC_DIR)/ray/ray_cam.c\
-			$(SRC_DIR)/ray/ray_tex.c
+			$(SRC_DIR)/ray/ray_tex.c\
+			$(SRC_DIR)/get_next_line/get_next_line.c\
+			$(SRC_DIR)/get_next_line/get_next_line_utils.c
 
 OBJS    = $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
