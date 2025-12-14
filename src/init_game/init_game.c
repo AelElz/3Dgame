@@ -6,7 +6,7 @@
 /*   By: ael-azha <ael-azha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/14 14:27:48 by ael-azha          #+#    #+#             */
-/*   Updated: 2025/12/14 14:48:44 by ael-azha         ###   ########.fr       */
+/*   Updated: 2025/12/14 14:52:04 by ael-azha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,7 @@ int	game_init(t_game *game, const char *cub_path)
 	game->player.pos.y = game->map.player.player_y;
 	game->player.dir.x = cos(game->map.player.angle * PI / 180.0);
 	game->player.dir.y = sin(game->map.player.angle * PI / 180.0);
-	game->player.plane.x = -game->player.dir.y * tan(FOV_DEG * PI / 360.0);
-	game->player.plane.y = game->player.dir.x * tan(FOV_DEG * PI / 360.0);
+	cam_make_plane(&game->player, FOV_DEG);
 	game->player.move_spd = 0.05;
 	game->player.rot_spd = 0.03;
 	game->running = true;

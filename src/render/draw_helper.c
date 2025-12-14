@@ -6,7 +6,7 @@
 /*   By: ael-azha <ael-azha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/23 21:23:56 by ayoub             #+#    #+#             */
-/*   Updated: 2025/12/11 17:57:44 by ael-azha         ###   ########.fr       */
+/*   Updated: 2025/12/14 15:01:20 by ael-azha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,11 @@ void	compute_line_bounds(t_game *game, t_ray *r,
 {
 	int	line_h;
 
+	if (r->perp_dist < 0.001)
+		r->perp_dist = 0.001;
 	line_h = (int)((double)game->frame.height / r->perp_dist);
-	*top = game->frame.height / 2 - line_h / 2;
-	*bot = *top + line_h - 1;
+	*top = (game->frame.height - line_h) / 2;
+	*bot = *top + line_h;
 }
 
 double	compute_wall_x(t_game *game, t_ray *r)

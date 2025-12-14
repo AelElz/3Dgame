@@ -6,7 +6,7 @@
 /*   By: ael-azha <ael-azha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/22 21:30:00 by ayoub             #+#    #+#             */
-/*   Updated: 2025/12/11 17:58:28 by ael-azha         ###   ########.fr       */
+/*   Updated: 2025/12/14 14:54:55 by ael-azha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	ray_init(t_ray *r, const t_player *p, int screen_x)
 
 	r->hit = 0;
 	r->side = 0;
-	cam_x = 2.0 * (double)screen_x / (double)(WIN_W - 1) - 1.0;
+	cam_x = 2.0 * (double)screen_x / (double)WIN_W - 1.0;
 	r->dir.x = p->dir.x + p->plane.x * cam_x;
 	r->dir.y = p->dir.y + p->plane.y * cam_x;
 	r->map.x = (int)floor(p->pos.x);

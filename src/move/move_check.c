@@ -6,7 +6,7 @@
 /*   By: ael-azha <ael-azha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/23 21:59:38 by ayoub             #+#    #+#             */
-/*   Updated: 2025/12/14 14:48:44 by ael-azha         ###   ########.fr       */
+/*   Updated: 2025/12/14 15:06:04 by ael-azha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,21 @@ void	try_move(t_game *game, double new_x, double new_y)
 {
 	double	old_x;
 	double	old_y;
+	int		can_move_both;
 
 	old_x = game->player.pos.x;
 	old_y = game->player.pos.y;
-	if (is_valid_pos(&game->map, new_x, old_y))
+	can_move_both = is_valid_pos(&game->map, new_x, new_y);
+	if (can_move_both)
+	{
 		game->player.pos.x = new_x;
-	if (is_valid_pos(&game->map, old_x, new_y))
 		game->player.pos.y = new_y;
+	}
+	else
+	{
+		if (is_valid_pos(&game->map, new_x, old_y))
+			game->player.pos.x = new_x;
+		if (is_valid_pos(&game->map, old_x, new_y))
+			game->player.pos.y = new_y;
+	}
 }

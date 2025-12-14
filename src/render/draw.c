@@ -6,7 +6,7 @@
 /*   By: ael-azha <ael-azha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 15:15:00 by ayoub             #+#    #+#             */
-/*   Updated: 2025/12/11 17:57:55 by ael-azha         ###   ########.fr       */
+/*   Updated: 2025/12/14 15:01:20 by ael-azha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,17 @@ unsigned int	tex_get_pixel(const t_img *tex, int tx, int ty)
 
 int	tex_sample_scaled_y(int y, int top, int bot, int tex_h)
 {
-	int	denom;
-	int	pos;
-	int	ty;
+	int		line_height;
+	int		ty;
+	double	step;
+	double	tex_pos;
 
-	denom = bot - top + 1;
-	pos = y - top;
-	if (denom <= 0)
+	line_height = bot - top;
+	if (line_height <= 0)
 		return (0);
-	ty = (pos * tex_h) / denom;
+	step = (double)tex_h / (double)line_height;
+	tex_pos = (double)(y - top) * step;
+	ty = (int)tex_pos;
 	if (ty < 0)
 		ty = 0;
 	if (ty >= tex_h)
