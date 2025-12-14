@@ -6,7 +6,7 @@
 /*   By: ael-azha <ael-azha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/11 18:43:48 by ael-azha          #+#    #+#             */
-/*   Updated: 2025/12/11 18:43:49 by ael-azha         ###   ########.fr       */
+/*   Updated: 2025/12/14 14:46:38 by ael-azha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,4 +78,57 @@ void	process_map_char(t_map *map, int x, int y, int *player_count)
 		printf("Error\nInvalid character '%c' in map at (%d,%d)\n", c, y, x);
 		exit(1);
 	}
+}
+
+void	scan_map_for_player(t_map *map, int *pc, int *px, int *py)
+{
+	int		x;
+	int		y;
+	char	c;
+
+	*pc = 0;
+	y = 0;
+	while (y < map->height)
+	{
+		x = 0;
+		while (map->map[y][x])
+		{
+			c = map->map[y][x];
+			if (c == 'N' || c == 'S' || c == 'W' || c == 'E')
+			{
+				if (*pc > 0)
+				{
+					printf("Error\nMultiple player spawn points found\n");
+					exit(1);
+				}
+				*px = x;
+				*py = y;
+				map->player.player_x = (double)x + 0.5;
+				map->player.player_y = (double)y + 0.5;
+				set_player_angle(map, c);
+				map->map[y][x] = '0';
+				(*pc)++;
+			}
+			x++;
+		}
+		y++;
+	}
+}
+
+int	validate_and_set_player(t_map *map)
+{
+	int	player_count;
+	int	player_x;
+	int	player_y;
+
+	scan_map_for_player(map, &player_count, &player_x, &player_y);
+	if (player_count != 1)
+	{
+		if (player_count == 0)
+			printf("Error\nNo player spawn point found\n");
+		else
+			printf("Error\nMultiple player spawn points found\n");
+		return (0);
+	}
+	return (1);
 }

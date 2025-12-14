@@ -6,7 +6,7 @@
 /*   By: ael-azha <ael-azha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/11 18:42:57 by ael-azha          #+#    #+#             */
-/*   Updated: 2025/12/11 18:42:59 by ael-azha         ###   ########.fr       */
+/*   Updated: 2025/12/14 14:40:27 by ael-azha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,4 +70,26 @@ char	*trim_end_spaces(char *start, char *end)
 	while (end > start && (*(end - 1) == ' ' || *(end - 1) == '\t'))
 		end--;
 	return (end);
+}
+
+char	*extract_path(char *line)
+{
+	char	*start;
+	char	*end;
+	int		len;
+
+	start = line;
+	while (*start && (*start == ' ' || *start == '\t'
+			|| (*start >= 'A' && *start <= 'Z')))
+		start++;
+	start = skip_spaces(start);
+	if (!*start || *start == '\n')
+		return (NULL);
+	end = start;
+	while (*end && *end != ' ' && *end != '\t' && *end != '\n' && *end != '\r')
+		end++;
+	len = end - start;
+	if (len == 0)
+		return (NULL);
+	return (copy_string(start, len));
 }

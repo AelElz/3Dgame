@@ -6,7 +6,7 @@
 /*   By: ael-azha <ael-azha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/23 21:45:58 by ayoub             #+#    #+#             */
-/*   Updated: 2025/12/11 17:58:15 by ael-azha         ###   ########.fr       */
+/*   Updated: 2025/12/13 14:19:41 by ael-azha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,12 @@ void	game_free(t_game *game)
 	img_free(game, &game->tex.we);
 	img_free(game, &game->tex.ea);
 	img_free(game, &game->frame);
-	if (game->map.grid)
+	if (game->map.map_full)
 	{
 		i = 0;
-		while (i < game->map.height)
-			free(game->map.grid[i++]);
-		free(game->map.grid);
+		while (game->map.map_full[i])
+			free(game->map.map_full[i++]);
+		free(game->map.map_full);
 	}
 	if (game->win)
 		mlx_destroy_window(game->mlx, game->win);

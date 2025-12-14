@@ -6,7 +6,7 @@
 /*   By: ael-azha <ael-azha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/23 21:59:38 by ayoub             #+#    #+#             */
-/*   Updated: 2025/12/11 17:59:44 by ael-azha         ###   ########.fr       */
+/*   Updated: 2025/12/14 14:48:44 by ael-azha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,16 @@
 
 int	map_is_wall(const t_map *map, int mx, int my)
 {
+	char	**grid;
+
 	if (my < 0 || mx < 0 || my >= map->height || mx >= map->width)
 		return (1);
-	return (map->grid[my][mx] == '1' || map->grid[my][mx] == ' ');
+	grid = map->grid;
+	if (!grid)
+		grid = map->map;
+	if (!grid || !grid[my])
+		return (1);
+	return (grid[my][mx] == '1' || grid[my][mx] == ' ');
 }
 
 int	is_valid_pos(const t_map *map, double x, double y)

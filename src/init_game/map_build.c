@@ -6,7 +6,7 @@
 /*   By: ael-azha <ael-azha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 14:56:16 by ayoub             #+#    #+#             */
-/*   Updated: 2025/12/11 18:56:33 by ael-azha         ###   ########.fr       */
+/*   Updated: 2025/12/13 13:57:01 by ael-azha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,23 +54,4 @@ void	find_spawn(t_game *g)
 			}
 		}
 	}
-}
-
-void	build_fallback_map(t_game *g)
-{
-	char	*rows[] = {
-		"11111111111111111",
-		"10000000000000001",
-		"1000000E000000001",
-		"10000001100000001",
-		"11111111111111111"
-	};
-	int		h;
-
-	if (g->map.grid || g->map.map)
-		return ;
-	h = (int)(sizeof(rows) / sizeof(rows[0]));
-	copy_rows_to_map(g, rows, h);
-	g->map.map = g->map.grid;
-	find_spawn(g);
 }

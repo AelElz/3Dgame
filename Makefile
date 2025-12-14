@@ -41,12 +41,14 @@ SRCS    =	$(SRC_DIR)/cub3d.c\
 			$(SRC_DIR)/init_game/map_build.c\
 			$(SRC_DIR)/init_game/player_spawn.c\
 			$(SRC_DIR)/init_game/clean.c\
+			$(SRC_DIR)/init_game/fallback_map.c\
 			$(SRC_DIR)/move/move.c\
 			$(SRC_DIR)/move/move_check.c\
 			$(SRC_DIR)/move/move_turn.c\
 			$(SRC_DIR)/ray/ray.c\
 			$(SRC_DIR)/ray/ray_cam.c\
 			$(SRC_DIR)/ray/ray_tex.c\
+			$(SRC_DIR)/parsing/parsing_main.c\
 			$(SRC_DIR)/parsing/parsing_utils1.c\
 			$(SRC_DIR)/parsing/parsing_utils2.c\
 			$(SRC_DIR)/parsing/colors/parsing.colors.c\

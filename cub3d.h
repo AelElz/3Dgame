@@ -6,7 +6,7 @@
 /*   By: ael-azha <ael-azha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 13:31:17 by ael-azha          #+#    #+#             */
-/*   Updated: 2025/12/11 18:47:15 by ael-azha         ###   ########.fr       */
+/*   Updated: 2025/12/14 14:40:27 by ael-azha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ typedef struct s_map
 {
 	char			**grid;
 	char			**map;
+	char			**map_full;
 	int				width;
 	int				height;
 	t_rgba			top_col;
@@ -180,11 +181,13 @@ int				init_mlx(t_game *game);
 void			init_hooks(t_game *game);
 int				game_init(t_game *game, const char *cub_path);
 void			set_defaults_if_empty(t_game *game);
+void			load_textures(t_game *game);
 void			game_free(t_game *game);
+int				read_cub_file(const char *cub_path, t_map *map);
+void			build_fallback_map(t_game *game);
 int				game_run(t_game *game);
 void			copy_rows_to_map(t_game *g, char **rows, int h);
 void			find_spawn(t_game *g);
-void			build_fallback_map(t_game *g);
 void			set_spawn_dir_values(t_player *p, char dir);
 void			set_player_spawn(t_game *game);
 int				mlx_destroy_display(void *mlx_ptr);
