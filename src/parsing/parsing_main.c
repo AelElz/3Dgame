@@ -6,7 +6,7 @@
 /*   By: ael-azha <ael-azha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/14 00:00:00 by ael-azha          #+#    #+#             */
-/*   Updated: 2025/12/14 14:44:58 by ael-azha         ###   ########.fr       */
+/*   Updated: 2025/12/14 16:30:31 by ael-azha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,17 +35,73 @@ char	*read_entire_file(const char *path)
 	return (content);
 }
 
+static int	count_lines_in_content(char *content)
+{
+	int	count;
+	int	i;
+
+	count = 0;
+	i = 0;
+	while (content[i])
+	{
+		if (content[i] == '\n')
+			count++;
+		i++;
+	}
+	if (i > 0 && content[i - 1] != '\n')
+		count++;
+	return (count);
+}
+
+static char	*extract_line(char *content, int *pos)
+{
+	int		start;
+	int		len;
+	char	*line;
+
+	start = *pos;
+	len = 0;
+	while (content[*pos] && content[*pos] != '\n')
+	{
+		(*pos)++;
+		len++;
+	}
+	line = malloc(len + 1);
+	if (!line)
+		return (NULL);
+	ft_memcpy(line, content + start, len);
+	line[len] = '\0';
+	if (content[*pos] == '\n')
+		(*pos)++;
+	return (line);
+}
+
 char	**split_lines(char *content, int *line_count)
 {
 	char	**lines;
 	int		count;
+	int		pos;
+	int		i;
 
-	lines = ft_split(content, '\n');
+	count = count_lines_in_content(content);
+	lines = malloc(sizeof(char *) * (count + 1));
 	if (!lines)
 		return (NULL);
-	count = 0;
-	while (lines[count])
-		count++;
+	pos = 0;
+	i = 0;
+	while (i < count)
+	{
+		lines[i] = extract_line(content, &pos);
+		if (!lines[i])
+		{
+			while (--i >= 0)
+				free(lines[i]);
+			free(lines);
+			return (NULL);
+		}
+		i++;
+	}
+	lines[i] = NULL;
 	*line_count = count;
 	return (lines);
 }
@@ -105,12 +161,80 @@ int	is_map_line(char *line)
 	return (0);
 }
 
+int	is_valid_map_char(char c)
+{
+	return (c == '0' || c == '1' || c == 'N' || c == 'S'
+		|| c == 'E' || c == 'W' || c == ' ' || c == '\t');
+}
+
+int	is_empty_or_whitespace(char *line)
+{
+	int	i;
+
+	if (!line)
+		return (1);
+	i = 0;
+	while (line[i])
+	{
+		if (line[i] != ' ' && line[i] != '\t'
+			&& line[i] != '\n' && line[i] != '\r')
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+int	validate_map_continuity(char **lines, int start_idx, int count)
+{
+	int		i;
+	int		map_started;
+	int		j;
+
+	map_started = 0;
+	i = start_idx;
+	while (i < count && lines[i])
+	{
+		if (!is_empty_or_whitespace(lines[i]))
+		{
+			if (is_map_line(lines[i]))
+			{
+				map_started = 1;
+				j = 0;
+				while (lines[i][j])
+				{
+					if (lines[i][j] != '\n' && lines[i][j] != '\r'
+						&& !is_valid_map_char(lines[i][j]))
+					{
+						printf("Error: Invalid character '%c' in map\n", lines[i][j]);
+						return (0);
+					}
+					j++;
+				}
+			}
+			else if (map_started)
+			{
+				printf("Error: Invalid content after map starts: '%s'\n", lines[i]);
+				return (0);
+			}
+		}
+		else if (map_started)
+		{
+			printf("Error: Empty line within map (line %d)\n", i + 1);
+			return (0);
+		}
+		i++;
+	}
+	return (1);
+}
+
 int	parse_map_section(t_map *map, char **lines, int start_idx, int count)
 {
 	int		map_lines;
 	int		i;
 	int		max_width;
 
+	if (!validate_map_continuity(lines, start_idx, count))
+		return (0);
 	map_lines = 0;
 	i = start_idx;
 	while (i < count && lines[i])
