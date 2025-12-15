@@ -6,7 +6,7 @@
 /*   By: ael-azha <ael-azha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 15:15:00 by ayoub             #+#    #+#             */
-/*   Updated: 2025/12/14 15:13:57 by ael-azha         ###   ########.fr       */
+/*   Updated: 2025/12/15 18:36:50 by ael-azha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	tex_sample_scaled_y(int y, int top, int bot, int tex_h)
 	if (line_height <= 0)
 		return (0);
 	step = (double)tex_h / (double)line_height;
-	tex_pos = (double)(y - top) * step;
+	tex_pos = (double)(y - top) *step;
 	ty = (int)tex_pos;
 	if (ty < 0)
 		ty = 0;

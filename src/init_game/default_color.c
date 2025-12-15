@@ -6,7 +6,7 @@
 /*   By: ael-azha <ael-azha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/23 21:43:49 by ayoub             #+#    #+#             */
-/*   Updated: 2025/12/15 17:18:18 by ael-azha         ###   ########.fr       */
+/*   Updated: 2025/12/15 18:34:23 by ael-azha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,14 @@ static int	load_texture(t_game *game, t_img *tex, char *path)
 
 void	load_textures(t_game *game)
 {
-	game->tex.loaded_no = load_texture(game, &game->tex.no, game->map.no_texture);
-	game->tex.loaded_so = load_texture(game, &game->tex.so, game->map.so_texture);
-	game->tex.loaded_we = load_texture(game, &game->tex.we, game->map.we_texture);
-	game->tex.loaded_ea = load_texture(game, &game->tex.ea, game->map.ea_texture);
+	game->tex.loaded_no = load_texture(game,
+			&game->tex.no, game->map.no_texture);
+	game->tex.loaded_so = load_texture(game,
+			&game->tex.so, game->map.so_texture);
+	game->tex.loaded_we = load_texture(game,
+			&game->tex.we, game->map.we_texture);
+	game->tex.loaded_ea = load_texture(game,
+			&game->tex.ea, game->map.ea_texture);
 }
 
 void	parse_colors(t_game *game)

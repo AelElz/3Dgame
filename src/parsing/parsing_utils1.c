@@ -6,23 +6,11 @@
 /*   By: ael-azha <ael-azha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/11 18:42:57 by ael-azha          #+#    #+#             */
-/*   Updated: 2025/12/14 14:40:27 by ael-azha         ###   ########.fr       */
+/*   Updated: 2025/12/15 18:47:32 by ael-azha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
-
-int	ft_strlen1(char *str)
-{
-	int	i;
-
-	i = 0;
-	if (!str)
-		return (0);
-	while (str[i])
-		i++;
-	return (i);
-}
 
 int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {

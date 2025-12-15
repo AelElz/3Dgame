@@ -6,21 +6,16 @@
 /*   By: ael-azha <ael-azha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/23 21:45:58 by ayoub             #+#    #+#             */
-/*   Updated: 2025/12/15 17:56:34 by ael-azha         ###   ########.fr       */
+/*   Updated: 2025/12/15 18:33:09 by ael-azha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void	game_free(t_game *game)
+void	free_map_arrays(t_game *game)
 {
 	int	i;
 
-	img_free(game, &game->tex.no);
-	img_free(game, &game->tex.so);
-	img_free(game, &game->tex.we);
-	img_free(game, &game->tex.ea);
-	img_free(game, &game->frame);
 	if (game->map.map_full)
 	{
 		i = 0;
@@ -35,6 +30,10 @@ void	game_free(t_game *game)
 			free(game->map.map[i++]);
 		free(game->map.map);
 	}
+}
+
+void	free_texture_paths(t_game *game)
+{
 	if (game->map.tex_no)
 		free(game->map.tex_no);
 	if (game->map.tex_so)
@@ -55,6 +54,17 @@ void	game_free(t_game *game)
 		free(game->map.floor_color);
 	if (game->map.ceiling_color)
 		free(game->map.ceiling_color);
+}
+
+void	game_free(t_game *game)
+{
+	img_free(game, &game->tex.no);
+	img_free(game, &game->tex.so);
+	img_free(game, &game->tex.we);
+	img_free(game, &game->tex.ea);
+	img_free(game, &game->frame);
+	free_map_arrays(game);
+	free_texture_paths(game);
 	if (game->win)
 		mlx_destroy_window(game->mlx, game->win);
 	if (game->mlx)

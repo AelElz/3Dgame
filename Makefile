@@ -45,19 +45,25 @@ SRCS    =	$(SRC_DIR)/cub3d.c\
 			$(SRC_DIR)/move/move.c\
 			$(SRC_DIR)/move/move_check.c\
 			$(SRC_DIR)/move/move_turn.c\
-			$(SRC_DIR)/ray/ray.c\
-			$(SRC_DIR)/ray/ray_cam.c\
-			$(SRC_DIR)/ray/ray_tex.c\
-			$(SRC_DIR)/parsing/parsing_main.c\
-			$(SRC_DIR)/parsing/parsing_utils1.c\
-			$(SRC_DIR)/parsing/parsing_utils2.c\
-			$(SRC_DIR)/parsing/colors/parsing.colors.c\
+		$(SRC_DIR)/ray/ray.c\
+		$(SRC_DIR)/ray/ray_cam.c\
+		$(SRC_DIR)/ray/ray_tex.c\
+		$(SRC_DIR)/parsing/parsing_main_new.c\
+		$(SRC_DIR)/parsing/parsing_main2.c\
+		$(SRC_DIR)/parsing/parsing_main3.c\
+		$(SRC_DIR)/parsing/parsing_main4.c\
+		$(SRC_DIR)/parsing/parsing_main5.c\
+		$(SRC_DIR)/parsing/parsing_utils1.c\
+		$(SRC_DIR)/parsing/parsing_utils2.c\
+		$(SRC_DIR)/parsing/parsing_utils3.c\
+		$(SRC_DIR)/parsing/colors/parsing.colors.c\
 			$(SRC_DIR)/parsing/colors/parsing.colors2.c\
-			$(SRC_DIR)/parsing/maps/parsing_map1.c\
-			$(SRC_DIR)/parsing/maps/parsing_map2.c\
-			$(SRC_DIR)/parsing/maps/parsing_map3.c\
-			$(SRC_DIR)/parsing/maps/parsing_map4.c\
-			$(SRC_DIR)/parsing/player/parcing_player.c\
+		$(SRC_DIR)/parsing/maps/parsing_map1.c\
+		$(SRC_DIR)/parsing/maps/parsing_map2.c\
+		$(SRC_DIR)/parsing/maps/parsing_map3.c\
+		$(SRC_DIR)/parsing/maps/parsing_map4.c\
+		$(SRC_DIR)/parsing/maps/parsing_map5.c\
+		$(SRC_DIR)/parsing/player/parcing_player.c\
 			$(SRC_DIR)/parsing/textures/parsing_textures.c\
 			$(SRC_DIR)/parsing/textures/parsing_textures2.c\
 			$(SRC_DIR)/parsing/textures/parsing_textures3.c

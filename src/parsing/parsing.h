@@ -6,7 +6,7 @@
 /*   By: ael-azha <ael-azha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/11 18:43:15 by ael-azha          #+#    #+#             */
-/*   Updated: 2025/12/15 17:43:04 by ael-azha         ###   ########.fr       */
+/*   Updated: 2025/12/15 18:54:47 by ael-azha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,5 +97,20 @@ t_point	*allocate_stack(t_map *map, char **visited);
 void	set_player_angle(t_map *map, char c);
 void	handle_player_spawn(t_map *map, int x, int y, int *player_count);
 void	init_directions(int *dx, int *dy);
+
+/* Main parsing functions */
+char	*read_entire_file(const char *path);
+char	**split_lines(char *content, int *line_count);
+int		calculate_max_width(char **lines, int start, int count);
+char	*pad_line(char *line, int target_width);
+int		is_map_line(char *line);
+int		is_valid_map_char(char c);
+int		is_empty_or_whitespace(char *line);
+int		validate_map_continuity(char **lines, int start_idx, int count);
+int		parse_map_section(t_map *map, char **lines, int start_idx, int count);
+void	convert_spaces_to_floor(t_map *map);
+int		read_cub_file(const char *cub_path, t_map *map);
+int		count_map_lines(char **lines, int start_idx, int count);
+void	fill_map_array(t_map *map, char **lines, int start, int count);
 
 #endif
