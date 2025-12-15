@@ -6,7 +6,7 @@
 /*   By: ael-azha <ael-azha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/11 18:43:48 by ael-azha          #+#    #+#             */
-/*   Updated: 2025/12/14 16:16:50 by ael-azha         ###   ########.fr       */
+/*   Updated: 2025/12/15 17:54:17 by ael-azha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,11 @@ int	validate_and_set_player(t_map *map)
 			printf("Error\nNo player spawn point found\n");
 		else
 			printf("Error\nMultiple player spawn points found\n");
+		return (0);
+	}
+	if (!check_map_closed(map, player_x, player_y))
+	{
+		printf("Error\nMap is not closed - player can escape\n");
 		return (0);
 	}
 	return (1);

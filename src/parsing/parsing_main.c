@@ -6,7 +6,7 @@
 /*   By: ael-azha <ael-azha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/14 00:00:00 by ael-azha          #+#    #+#             */
-/*   Updated: 2025/12/14 16:30:31 by ael-azha         ###   ########.fr       */
+/*   Updated: 2025/12/15 17:54:17 by ael-azha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,13 +189,16 @@ int	validate_map_continuity(char **lines, int start_idx, int count)
 	int		i;
 	int		map_started;
 	int		j;
+	int		consecutive_empty;
 
 	map_started = 0;
+	consecutive_empty = 0;
 	i = start_idx;
 	while (i < count && lines[i])
 	{
 		if (!is_empty_or_whitespace(lines[i]))
 		{
+			consecutive_empty = 0;
 			if (is_map_line(lines[i]))
 			{
 				map_started = 1;
@@ -219,8 +222,13 @@ int	validate_map_continuity(char **lines, int start_idx, int count)
 		}
 		else if (map_started)
 		{
-			printf("Error: Empty line within map (line %d)\n", i + 1);
-			return (0);
+			consecutive_empty++;
+			if (i + 1 < count && lines[i + 1] 
+				&& !is_empty_or_whitespace(lines[i + 1]))
+			{
+				printf("Error: Empty line within map (line %d)\n", i + 1);
+				return (0);
+			}
 		}
 		i++;
 	}
@@ -259,6 +267,37 @@ int	parse_map_section(t_map *map, char **lines, int start_idx, int count)
 	}
 	map->map[map_lines] = NULL;
 	return (1);
+}
+
+void	convert_spaces_to_floor(t_map *map)
+{
+	int	x;
+	int	y;
+	int	first_nonspace;
+	int	last_nonspace;
+	int	len;
+
+	y = 0;
+	while (y < map->height)
+	{
+		len = ft_strlen(map->map[y]);
+		first_nonspace = 0;
+		while (first_nonspace < len && (map->map[y][first_nonspace] == ' '
+				|| map->map[y][first_nonspace] == '\t'))
+			first_nonspace++;
+		last_nonspace = len - 1;
+		while (last_nonspace >= 0 && (map->map[y][last_nonspace] == ' '
+				|| map->map[y][last_nonspace] == '\t'))
+			last_nonspace--;
+		x = first_nonspace;
+		while (x <= last_nonspace)
+		{
+			if (map->map[y][x] == ' ' || map->map[y][x] == '\t')
+				map->map[y][x] = '0';
+			x++;
+		}
+		y++;
+	}
 }
 
 int	read_cub_file(const char *cub_path, t_map *map)
@@ -301,6 +340,12 @@ int	read_cub_file(const char *cub_path, t_map *map)
 	}
 	if (!validate_parsing_completeness(map))
 		return (0);
+	if (!check_map_borders(map))
+	{
+		printf("Error\nMap is not properly enclosed by walls\n");
+		return (0);
+	}
+	convert_spaces_to_floor(map);
 	if (!validate_and_set_player(map))
 		return (0);
 	i = 0;

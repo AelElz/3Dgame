@@ -6,18 +6,24 @@
 /*   By: ael-azha <ael-azha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/11 18:43:05 by ael-azha          #+#    #+#             */
-/*   Updated: 2025/12/13 13:47:40 by ael-azha         ###   ########.fr       */
+/*   Updated: 2025/12/15 17:43:04 by ael-azha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-void	add_neighbor_to_stack(t_flood_data *data, t_point neighbor)
+void	add_neighbor_to_stack(t_flood_data *data, t_point neighbor, t_map *map)
 {
+	char	c;
+
 	if (!data->visited[neighbor.y][neighbor.x])
 	{
-		data->visited[neighbor.y][neighbor.x] = 1;
-		data->stack[(*data->stack_size)++] = neighbor;
+		c = map->map[neighbor.y][neighbor.x];
+		if (c == '0' || c == 'N' || c == 'S' || c == 'E' || c == 'W')
+		{
+			data->visited[neighbor.y][neighbor.x] = 1;
+			data->stack[(*data->stack_size)++] = neighbor;
+		}
 	}
 }
 
@@ -41,7 +47,7 @@ int	process_neighbors(t_map *map, t_point p, t_flood_data *data)
 			return (0);
 		}
 		if (ny >= 0 && ny < map->height && nx >= 0 && nx < map->width)
-			add_neighbor_to_stack(data, (t_point){nx, ny});
+			add_neighbor_to_stack(data, (t_point){nx, ny}, map);
 		i++;
 	}
 	return (1);

@@ -6,7 +6,7 @@
 /*   By: ael-azha <ael-azha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/11 18:43:15 by ael-azha          #+#    #+#             */
-/*   Updated: 2025/12/13 14:22:35 by ael-azha         ###   ########.fr       */
+/*   Updated: 2025/12/15 17:43:04 by ael-azha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void	cleanup_map_array(t_map *map);
 
 /* Flood fill functions */
 int		flood_fill_loop(t_map *map, t_flood_data *data);
-void	add_neighbor_to_stack(t_flood_data *data, t_point neighbor);
+void	add_neighbor_to_stack(t_flood_data *data, t_point neighbor, t_map *map);
 int		process_neighbors(t_map *map, t_point p, t_flood_data *data);
 char	**allocate_visited(t_map *map);
 t_point	*allocate_stack(t_map *map, char **visited);
