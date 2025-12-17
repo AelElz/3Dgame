@@ -6,11 +6,11 @@
 /*   By: ael-azha <ael-azha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/15 19:15:00 by ael-azha          #+#    #+#             */
-/*   Updated: 2025/12/15 18:47:26 by ael-azha         ###   ########.fr       */
+/*   Updated: 2025/12/17 22:11:14 by ael-azha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing.h"
+#include "../parsing.h"
 
 int	ft_strlen1(char *str)
 {

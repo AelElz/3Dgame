@@ -6,11 +6,11 @@
 /*   By: ael-azha <ael-azha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/15 19:00:00 by ael-azha          #+#    #+#             */
-/*   Updated: 2025/12/15 18:54:37 by ael-azha         ###   ########.fr       */
+/*   Updated: 2025/12/17 22:10:46 by ael-azha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing.h"
+#include "../parsing.h"
 
 static int	validate_map_char_in_line(char *line)
 {

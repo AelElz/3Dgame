@@ -6,11 +6,11 @@
 /*   By: ael-azha <ael-azha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/15 19:00:00 by ael-azha          #+#    #+#             */
-/*   Updated: 2025/12/15 18:46:04 by ael-azha         ###   ########.fr       */
+/*   Updated: 2025/12/17 22:10:41 by ael-azha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing.h"
+#include "../parsing.h"
 
 int	calculate_max_width(char **lines, int start, int count)
 {

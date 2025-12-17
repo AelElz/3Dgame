@@ -6,11 +6,11 @@
 /*   By: ael-azha <ael-azha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/15 19:30:00 by ael-azha          #+#    #+#             */
-/*   Updated: 2025/12/15 18:54:30 by ael-azha         ###   ########.fr       */
+/*   Updated: 2025/12/17 22:10:54 by ael-azha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing.h"
+#include "../parsing.h"
 
 static void	find_space_bounds(char *line, int len, int *first, int *last)
 {

@@ -6,11 +6,11 @@
 /*   By: ael-azha <ael-azha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/11 18:43:05 by ael-azha          #+#    #+#             */
-/*   Updated: 2025/12/15 17:43:04 by ael-azha         ###   ########.fr       */
+/*   Updated: 2025/12/17 22:11:04 by ael-azha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing.h"
+#include "../parsing.h"
 
 void	add_neighbor_to_stack(t_flood_data *data, t_point neighbor, t_map *map)
 {

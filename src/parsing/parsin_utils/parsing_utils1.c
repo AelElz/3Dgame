@@ -6,11 +6,11 @@
 /*   By: ael-azha <ael-azha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/11 18:42:57 by ael-azha          #+#    #+#             */
-/*   Updated: 2025/12/17 21:32:07 by ael-azha         ###   ########.fr       */
+/*   Updated: 2025/12/17 22:11:00 by ael-azha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing.h"
+#include "../parsing.h"
 
 int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
