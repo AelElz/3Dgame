@@ -23,7 +23,7 @@
 #define CEILCLR 0x0099CCFF  // light sky
 #define FLRCLR  0x00333333  // dark floor
 
-// #include "src/get_next_line/get_next_line.h"
+// #include "src/parsing/gnl/get_next_line.h"
 #include "includes/libft.h"
 #include <stdlib.h>
 #include <stdio.h>
