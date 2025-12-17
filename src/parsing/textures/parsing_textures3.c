@@ -6,7 +6,7 @@
 /*   By: ael-azha <ael-azha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/11 18:42:53 by ael-azha          #+#    #+#             */
-/*   Updated: 2025/12/11 18:42:54 by ael-azha         ###   ########.fr       */
+/*   Updated: 2025/12/17 21:19:12 by ael-azha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	cleanup_map(t_map *map)
 
 int	parse_config_line(t_map *map, char *line)
 {
+	skip_spaces(line);
 	if (ft_strncmp(line, "NO ", 3) == 0)
 		return (parse_no_texture(map, line));
 	else if (ft_strncmp(line, "SO ", 3) == 0)
