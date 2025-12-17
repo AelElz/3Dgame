@@ -24,7 +24,7 @@ void	init_elements_splited(t_elements_splited *elements_splited)
 }
 typedef struct s_parsing
 {
-	t_elements_splited	elements_splited;
+	t_elements_splited	*elements_splited;
 }		t_parsing;
 
 int	ft_strcmp(char *s1, char *s2)
@@ -210,20 +210,19 @@ int	contain_two_parts(char *str)
 
 int	which_element(char *element_str, t_parsing *p)
 {
-	init_elements_splited(&p->elements_splited);
 
-	if (ft_strcmp(element_str, "F"))
-		p->elements_splited.f = ft_split_idinfo(element_str);
-	else if (ft_strcmp(element_str, "C"))
-		p->elements_splited.c = ft_split_idinfo(element_str);
-	else if (ft_strcmp(element_str, "NO"))
-		p->elements_splited.no = ft_split_idinfo(element_str);
-	else if (ft_strcmp(element_str, "SO"))
-		p->elements_splited.so = ft_split_idinfo(element_str);
-	else if (ft_strcmp(element_str, "WE"))
-		p->elements_splited.we = ft_split_idinfo(element_str);
-	else if (ft_strcmp(element_str, "EA"))
-		p->elements_splited.ea = ft_split_idinfo(element_str);
+	if (ft_strcmp(element_str, "F") && p->elements_splited->f == NULL)
+		p->elements_splited->f = ft_split_idinfo(element_str);
+	else if (ft_strcmp(element_str, "C")&& p->elements_splited->c == NULL)
+		p->elements_splited->c = ft_split_idinfo(element_str);
+	else if (ft_strcmp(element_str, "NO")&& p->elements_splited->no == NULL)
+		p->elements_splited->no = ft_split_idinfo(element_str);
+	else if (ft_strcmp(element_str, "SO")&& p->elements_splited->so == NULL)
+		p->elements_splited->so = ft_split_idinfo(element_str);
+	else if (ft_strcmp(element_str, "WE")&& p->elements_splited->we == NULL)
+		p->elements_splited->we = ft_split_idinfo(element_str);
+	else if (ft_strcmp(element_str, "EA")&& p->elements_splited->ea == NULL)
+		p->elements_splited->ea = ft_split_idinfo(element_str);
 	// printf("%s", elements_splited.c[0]);
 	return (0);
 }
@@ -231,9 +230,10 @@ int	which_element(char *element_str, t_parsing *p)
 int parse_elements(char **first_six, t_parsing *p)
 {
 	int	i;
-	// char **elements;
 
 	i = 0;
+	p->elements_splited = malloc(sizeof(t_elements_splited));
+	init_elements_splited(p->elements_splited);
 	while (i < 6)
 	{
 		if (ft_strcmp(first_six[i] + skip_empty(first_six[i]), "F") || ft_strcmp(first_six[i] + skip_empty(first_six[i]), "C")
@@ -327,24 +327,21 @@ int main(int ac, char **av){
 	char **map;
 	t_parsing	p;
 
-
-	if(ac != 2)
+	if (ac != 2)
 	{
 		write(2, "Error: ARGS\n", 12);
-		return 1;
+		return (1);
 	}
-	
-	if(check_the_file_extension(av[1])){
-		printf("Error: Invalid file format\n");
-		return 1;
+	if (check_the_file_extension(av[1]))
+	{
+		write(2, "Error: Invalid file format\n", 27);
+		return (1);
 	}
-	// (void)map;
 	map = read_map(av[1]);
 	// printf("%d", count_map(map));
 	if(parse_map(map, &p)){
 		printf("------- Parsing -------\n");
 		// print_map(map);
-		// printf("%s\n", p.elements_splited.f[1]);
+		printf("%s\n", p.elements_splited->c[1]);
 	}
-
 }

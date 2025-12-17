@@ -30,7 +30,7 @@ static char	**freeing(char **m, int i)
 
 static char const	*skip(char const *s)
 {
-	while (*s == ' ' || *s == '\t')
+	while (*s == ' ' || *s == '\t' || *s == '\n')
 		s++;
 	return (s);
 }
@@ -47,13 +47,13 @@ char	**ft_split_idinfo(char const *s)
 	m = malloc(sizeof(char *) * 3);
 	if (!m)
 		return (NULL);
-	while (*s)
+	while (*s && i < 2)
 	{
 		len = 0;
 		s = skip(s);
-		if (*s == '\0' || *s == '\n')
+		if (*s == '\0')
 			break ;
-		while (s[len] != ' ' && s[len] != '\t' && s[len])
+		while (s[len] != ' ' && s[len] != '\t' && s[len] != '\n' && s[len])
 			len++;
 		m[i] = ft_substr(s, 0, len);
 		if (m[i++] == NULL)

@@ -1,12 +1,12 @@
-	 F   	135,206,235	 
+	 F   	135,206,235	
 
 
-C   105,105,105
+  C   105,105,105
 
-		NO textures/gray_hitler.png
-SO textures/gray_hitler.png
-WE 	textures/gray_hitler.png
-EA    textures/gray_hitler.png
+		NO textures/texn.png
+SO textures/texs.png
+WE 	textures/texw.png
+EA    textures/texe.png 
 
 	1111111111111111111111111
 	1000000000110000000000001
