@@ -3,6 +3,29 @@
 #include "gnl/get_next_line.h"
 
 char	**ft_split_idinfo(char const *s);
+typedef struct	s_elements_splited
+{
+	char	**f;
+	char	**c;
+	char	**no;
+	char	**so;
+	char	**we;
+	char	**ea;
+}				t_elements_splited;
+
+void	init_elements_splited(t_elements_splited *elements_splited)
+{
+	elements_splited->f = NULL;
+	elements_splited->c = NULL;
+	elements_splited->no = NULL;
+	elements_splited->so = NULL;
+	elements_splited->we = NULL;
+	elements_splited->ea = NULL;
+}
+typedef struct s_parsing
+{
+	t_elements_splited	elements_splited;
+}		t_parsing;
 
 int	ft_strcmp(char *s1, char *s2)
 {
@@ -183,44 +206,29 @@ int	contain_two_parts(char *str)
 	return (1);
 }
 
-typedef struct	s_elements_splited
-{
-	char	**f;
-	char	**c;
-	char	**no;
-	char	**so;
-	char	**we;
-	char	**ea;
-}				t_elements_splited;
 
-void	init_elements_splited(t_elements_splited *elements_splited)
-{
-	elements_splited->f = NULL;
-	elements_splited->c = NULL;
-}
 
-int	which_element(char *element_str)
+int	which_element(char *element_str, t_parsing *p)
 {
-	t_elements_splited	elements_splited;
-	// init_elements_splited(&elements_splited);
+	init_elements_splited(&p->elements_splited);
 
 	if (ft_strcmp(element_str, "F"))
-		elements_splited.f = ft_split_idinfo(element_str);
+		p->elements_splited.f = ft_split_idinfo(element_str);
 	else if (ft_strcmp(element_str, "C"))
-		elements_splited.c = ft_split_idinfo(element_str);
-	// else if (ft_strcmp(element_str, "NO"))
-	// 	elements_splited.no = ft_split_idinfo(element_str);
-	// else if (ft_strcmp(element_str, "SO"))
-	// 	elements_splited.so = ft_split_idinfo(element_str);
-	// else if (ft_strcmp(element_str, "WE"))
-	// 	elements_splited.we = ft_split_idinfo(element_str);
-	// else if (ft_strcmp(element_str, "EA"))
-	// 	elements_splited.ea = ft_split_idinfo(element_str);
-	printf("%s", elements_splited.f[0]);
+		p->elements_splited.c = ft_split_idinfo(element_str);
+	else if (ft_strcmp(element_str, "NO"))
+		p->elements_splited.no = ft_split_idinfo(element_str);
+	else if (ft_strcmp(element_str, "SO"))
+		p->elements_splited.so = ft_split_idinfo(element_str);
+	else if (ft_strcmp(element_str, "WE"))
+		p->elements_splited.we = ft_split_idinfo(element_str);
+	else if (ft_strcmp(element_str, "EA"))
+		p->elements_splited.ea = ft_split_idinfo(element_str);
+	// printf("%s", elements_splited.c[0]);
 	return (0);
 }
 
-int parse_elements(char **first_six)
+int parse_elements(char **first_six, t_parsing *p)
 {
 	int	i;
 	// char **elements;
@@ -232,7 +240,7 @@ int parse_elements(char **first_six)
 		|| ft_strcmp(first_six[i] + skip_empty(first_six[i]), "NO") || ft_strcmp(first_six[i] + skip_empty(first_six[i]), "SO")
 		|| ft_strcmp(first_six[i] + skip_empty(first_six[i]), "WE") || ft_strcmp(first_six[i] + skip_empty(first_six[i]), "EA"))
 		{
-			if (which_element(first_six[i] + skip_empty(first_six[i])))
+			if (which_element(first_six[i] + skip_empty(first_six[i]), p))
 				return (0);
 		}
 		i++;
@@ -240,7 +248,7 @@ int parse_elements(char **first_six)
 	return (0);
 }
 
-int	parse_first_six(char **map)
+int	parse_first_six(char **map, t_parsing *p)
 {
 	int		i;
 	int		j;
@@ -262,14 +270,14 @@ int	parse_first_six(char **map)
 		i++;
 	}
 	first_six[j] = NULL;
-	parse_elements(first_six);
+	parse_elements(first_six, p);
 	// i = 0;
 	// while (first_six[i])
 	// 	printf("%s", first_six[i++]);
 	return (0);
 }
 
-int parse_map(char **map)
+int parse_map(char **map, t_parsing *p)
 {
 	// read the lines and check if the line count are 6
 	// check the avabaility of contents after the count 6 means there s a map in the file 
@@ -278,7 +286,7 @@ int parse_map(char **map)
 	// (void)map;
 	// t_file_content	fcontent;
 	// fcontent = collect_elements(map);
-	printf("%d", parse_first_six(map));
+	printf("%d", parse_first_six(map, p));
 
 	// printf("%d\n", contain_two_parts(fcontent.f));
 	// printf("%s", fcontent.f);
@@ -317,6 +325,8 @@ void print_map(char **map)
 int main(int ac, char **av){
 	
 	char **map;
+	t_parsing	p;
+
 
 	if(ac != 2)
 	{
@@ -331,9 +341,10 @@ int main(int ac, char **av){
 	// (void)map;
 	map = read_map(av[1]);
 	// printf("%d", count_map(map));
-	if(parse_map(map)){
-		printf("------------------------------- Parsing -----------------------\n");
+	if(parse_map(map, &p)){
+		printf("------- Parsing -------\n");
 		// print_map(map);
+		// printf("%s\n", p.elements_splited.f[1]);
 	}
 
 }
