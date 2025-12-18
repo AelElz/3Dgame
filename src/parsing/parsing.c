@@ -1,87 +1,91 @@
-#include "gnl/get_next_line.h"
-#include <stdio.h>
+#include "parsing.h"
 
-typedef struct s_element
-{
-	int		f;
-	int		c;
-	char	*no;
-	char	*so;
-	char	*we;
-	char	*ea;
-}			t_element;
-
-
-void	erroring(int n)
-{
-	perror("");
-	// printf("Error: ");
-	if (n == 1)
-		printf("Can't open the file\n");
-}
-
-int	ft_strcmp(char *s1, char *s2)
+int	parse_first_six(t_parsing *p)
 {
 	int	i;
+	int	count_lines;
 
 	i = 0;
-	while (s1[i] && s2[i])
+	count_lines = 0;
+	while (p->file[i] && count_lines < 6)
 	{
-		if (s1[i] != s2[i])
-			return (0);
+		if (!is_empty(p->file[i]))
+		{
+			if (contain_two_parts(p->file[i]))
+			{
+				p->first_six[count_lines] = ft_strdup(p->file[i]);
+				remove_newline(p->first_six[count_lines]);
+				count_lines++;
+			}
+			else
+				exiting("Error: invalid element line\n", p);
+		}
 		i++;
 	}
-	return (1);
+	if (count_lines < 6)
+		exiting("Error: missing elements\n", p);
+	p->first_six[count_lines] = NULL;
+	return (i);
 }
 
-void	init_elements(t_element *elem)
+void	parse_map(t_parsing *p, int i)
 {
-	elem->f = -1;
-	elem->c = -1;
-	elem->no = NULL;
-	elem->so = NULL;
-	elem->we = NULL;
-	elem->ea = NULL;
-}
+	int j;
 
-void	pars_color(t_element *elem, char *line)
-{
-	if (ft_strcmp("F", line))
+	j = i;
+	while (p->file[j])
+		j++;
+	p->map = malloc(sizeof(char *) * (j + 1));
+	if (!p->map)
+		exiting("Error: malloc\n", p);
+	j = 0;
+	while (p->file[i])
 	{
-		
+		p->map[j] = ft_strdup(p->file[i]);
+		remove_newline(p->map[j]);
+		j++;
+		i++;
+	}
+	p->map[j] = NULL;
+	p->has_map = 1;
+}
+
+void	parse_file(t_parsing *p)
+{
+	int i;
+
+	p->first_six = malloc(sizeof(char *) * 7);
+	if (!p->first_six)
+		exiting("Error: malloc\n", p);
+	i = parse_first_six(p);
+	while (p->file[i] && is_empty(p->file[i]))
+		i++;
+	if (p->file[i])
+		parse_map(p, i);
+	else
+	{
+		p->map = NULL;
+		p->has_map = 0;
 	}
 }
 
-int	reading_map(char *input)
+void init_elements_splited(t_elements_splited *elements_splited)
 {
-	t_element	elem;
-	int			fd;
-	char		*line;
-
-	init_elements(&elem);
-	fd = open(input, O_RDONLY);
-	if (fd < 0)
-		return (perror(""), 1);
-	line = get_next_line(fd);
-	while (line)
-	{
-		if ((ft_strcmp("F", line) && elem.f == -1)
-			|| (ft_strcmp("C", line) && elem.c == -1))
-			pars_color(&elem, line);
-		// else if (ft_strcmp("C", line) && elem.c == -1)
-		// else if (ft_strcmp("NO", line) && !elem.no)
-		// else if (ft_strcmp("SO", line) && !elem.so)
-		// else if (ft_strcmp("WE", line) && !elem.we)
-		// else if (ft_strcmp("EA", line) && !elem.ea)
-		free(line);
-		line = get_next_line(fd);
-	}
-	return (0);
+	elements_splited->f = NULL;
+	elements_splited->c = NULL;
+	elements_splited->no = NULL;
+	elements_splited->so = NULL;
+	elements_splited->we = NULL;
+	elements_splited->ea = NULL;
 }
 
-int main(int ac, char **av)
+void	main_parsing(t_parsing *p)
 {
-	if (ac != 2 || reading_map(av[1]))
-		return (1);
-	printf("good :)\n");
+	p->first_six = NULL;
+	init_elements_splited(&p->elements_splited);
+	parse_file(p);
+	if (!p->has_map)
+		exiting("Error: missing map\n", p);
+	parse_first_elements(p);
+	// parse_key_value(p);
 }

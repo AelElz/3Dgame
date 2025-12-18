@@ -35,6 +35,42 @@ static char const	*skip(char const *s)
 	return (s);
 }
 
+static char const	*skip_com(char const *s)
+{
+	while (*s == ' ' || *s == '\t' || *s == ',')
+		s++;
+	return (s);
+}
+
+char	**ft_split_colors(char const *s)
+{
+	int		i;
+	int		len;
+	char	**m;
+
+	i = 0;
+	if (!s)
+		return (NULL);
+	m = malloc(sizeof(char *) * 4);
+	if (!m)
+		return (NULL);
+	while (*s)
+	{
+		len = 0;
+		s = skip_com(s);
+		if (*s == '\0')
+			break ;
+		while (s[len] != ',' && s[len])
+			len++;
+		m[i] = ft_substr(s, 0, len);
+		if (m[i++] == NULL)
+			return (freeing (m, i));
+		s += len;
+	}
+	m[i] = NULL;
+	return (m);
+}
+
 char	**ft_split_idinfo(char const *s)
 {
 	int		i;

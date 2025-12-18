@@ -7,7 +7,11 @@ CFLAGS  = -Wall -Wextra -Werror -g3
 SRCS    =	gnl/get_next_line.c\
 			gnl/get_next_line_utils.c\
 			main.c\
-			split.c
+			split.c\
+			reading.c\
+			parsing.c\
+			parsing2.c\
+			parsing3.c
 
 OBJS    = $(SRCS:%.c=%.o)
 
