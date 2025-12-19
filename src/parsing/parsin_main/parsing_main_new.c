@@ -6,7 +6,7 @@
 /*   By: ael-azha <ael-azha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/14 00:00:00 by ael-azha          #+#    #+#             */
-/*   Updated: 2025/12/17 22:10:35 by ael-azha         ###   ########.fr       */
+/*   Updated: 2025/12/18 21:07:16 by ael-azha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ char	*read_entire_file(const char *path)
 	return (content);
 }
 
-static int	count_lines_in_content(char *content)
+int	count_lines_in_content(char *content)
 {
 	int	count;
 	int	i;
@@ -55,7 +55,7 @@ static int	count_lines_in_content(char *content)
 	return (count);
 }
 
-static char	*extract_line(char *content, int *pos)
+char	*extract_line(char *content, int *pos)
 {
 	int		start;
 	int		len;
@@ -78,7 +78,7 @@ static char	*extract_line(char *content, int *pos)
 	return (line);
 }
 
-static char	**allocate_and_fill_lines(char *content, int count, int *lc)
+char	**allocate_and_fill_lines(char *content, int count, int *lc)
 {
 	char	**lines;
 	int		pos;

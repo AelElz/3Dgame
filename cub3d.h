@@ -6,7 +6,7 @@
 /*   By: ael-azha <ael-azha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 13:31:17 by ael-azha          #+#    #+#             */
-/*   Updated: 2025/12/14 15:13:57 by ael-azha         ###   ########.fr       */
+/*   Updated: 2025/12/19 17:04:34 by ael-azha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -225,5 +225,6 @@ void			draw_wall_tex(t_game *g, int x, t_ray *r);
 void			draw_wall(t_game *g, int x, t_ray *r);
 unsigned int	tex_get_pixel(const t_img *tex, int tx, int ty);
 int				tex_sample_scaled_y(int y, int top, int bot, int tex_h);
+void			cleanup_lines(char **lines, int line_count);
 
 #endif

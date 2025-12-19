@@ -6,7 +6,7 @@
 /*   By: ael-azha <ael-azha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/23 21:45:58 by ayoub             #+#    #+#             */
-/*   Updated: 2025/12/15 18:33:09 by ael-azha         ###   ########.fr       */
+/*   Updated: 2025/12/19 17:04:20 by ael-azha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,13 @@ void	free_map_arrays(t_game *game)
 		while (game->map.map[i])
 			free(game->map.map[i++]);
 		free(game->map.map);
+	}
+	if (game->map.grid)
+	{
+		i = 0;
+		while (game->map.grid[i])
+			free(game->map.grid[i++]);
+		free(game->map.grid);
 	}
 }
 
@@ -81,4 +88,18 @@ int	game_run(t_game *game)
 		return (printf("invalid game\n"));
 	mlx_loop(game->mlx);
 	return (0);
+}
+
+void	cleanup_lines(char **lines, int line_count)
+{
+	int	i;
+
+	i = 0;
+	while (i < line_count)
+	{
+		if (lines[i])
+			free(lines[i]);
+		i++;
+	}
+	free(lines);
 }
