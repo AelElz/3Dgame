@@ -31,6 +31,7 @@ int main(int ac, char **av)
 	t_parsing *p;
 
 	p = malloc (sizeof(t_parsing));
+	memset(p, 0, sizeof(t_parsing));
 	if (ac != 2)
 		exiting("Error: invalid arguments\n", p);
 	if (check_the_file_extension(av[1]))
@@ -39,7 +40,7 @@ int main(int ac, char **av)
 	if (!p->file)
 		exiting("Error: failed to read file\n", p);
 	main_parsing(p);
-
+	
 	// print_parsed_elements(p);
 	// check_elements_rules(p);
 	// check_map_rules(p);

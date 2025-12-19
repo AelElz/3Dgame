@@ -39,12 +39,9 @@ char	**read_file(char *file)
 	while (line)
 	{
 		store_lines[i++] = line;
-		// free(line);
 		line = get_next_line(fd);
 	}
 	store_lines[i] = NULL;
-	// if (line)
-	// 	free(line);
 	close(fd);
 	return (store_lines);
 }

@@ -8,7 +8,10 @@ void freeing_arr(char **arr)
 	if (!arr)
 		return;
 	while (arr[i])
-		free(arr[i++]);
+	{
+		free(arr[i]);
+		i++;
+	}
 	free(arr);
 }
 
