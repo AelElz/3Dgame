@@ -60,19 +60,35 @@ int	init_graphics(t_game *game)
 
 int	game_init(t_game *game, const char *cub_path)
 {
-	int	parsed;
+	// int	parsed;
+	(void)cub_path;
+	// (void)p;
+	
 
-	ft_memset(game, 0, sizeof(*game));
-	parsed = read_cub_file(cub_path, &game->map);
-	if (!parsed)
-	{
-		printf("Error: Failed to parse map file, exiting\n");
-		return (1);
-	}
+	// ft_memset(game, 0, sizeof(*game));
+
+	// parsed = read_cub_file(cub_path, &game->map);
+	// if (!parsed)
+	// {
+	// 	printf("Error: Failed to parse map file, exiting\n");
+	// 	return (1);
+	// }
+	// main_parsing(p);
+	// printf("%s\n", game->map.ceiling_color);
+	// printf("%s\n", p->map.ceiling_color);
+	// int i = 0;
+	// while (p->file[i])
+	// 	printf("%s\n", p->file[i++]);
 	set_defaults_if_empty(game);
 	if (init_graphics(game))
 		return (1);
 	init_player(game);
 	game->running = true;
+	// 	printf("------tracker1------\n");
+	// printf("map height = %d\n", game->map.height);
+	// printf("floor color = %s\n", game->map.floor_color);
 	return (0);
 }
+
+	// while (p->file[i])
+	// 	printf("%s\n", p->file[i++]);

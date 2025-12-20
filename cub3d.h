@@ -30,7 +30,7 @@
 # include <stdbool.h>
 # include <string.h>
 # include <math.h>
-# include "mlx.h"
+# include "../minilibx-linux/mlx.h"
 # include <X11/keysym.h>
 # define K_ESC XK_Escape
 # define K_W XK_w
@@ -165,6 +165,25 @@ typedef struct s_input
 	int	right;
 }	t_input;
 
+typedef struct s_elements_splited
+{
+	char **f;
+	char **c;
+	char **no;
+	char **so;
+	char **we;
+	char **ea;
+} t_elements_splited;
+
+typedef struct s_parsing
+{
+	char	            **file;
+	char	            **first_six;
+	int                 has_map;
+	// t_map				map;
+	t_elements_splited  elements_splited;
+} t_parsing;
+
 typedef struct s_game
 {
 	void		*mlx;
@@ -175,7 +194,65 @@ typedef struct s_game
 	t_player	player;
 	t_input		input;
 	bool		running;
+	t_parsing	*p;
 }	t_game;
+
+
+
+
+
+// main.c
+int     ft_strcmp(char *s1, char *s2);
+int     check_the_file_extension(char *file);
+
+// parsing.c
+int		parse_first_six(t_game *game);
+int		map_ended(char **map, int j);
+int		calculate_width(char **map, int height);
+void	parse_file(t_game *game);
+void	init_elements_splited(t_elements_splited *elements_splited);
+int		is_map(char c);
+void	validate_map(t_game *game);
+int		is_valid_neighbor(t_game *game, int col, int row);
+void	check_walkable_spaces(t_game *game);
+int		check_side_walls(t_game *game);
+int		check_top_bottom_walls(t_game *game, int col);
+void	check_map_borders(t_game *game);
+void	set_player_angle(t_game *game, char c);
+void	player_found(t_game *game, int x, int y, int *player_count);
+void	find_player(t_game *game, int *player_count);
+void	validate_player(t_game *game);
+void	main_parsing(t_game *game);
+
+// parsing2.c
+void    freeing_arr(char **arr);
+void	exiting(char *msg, t_game *game);
+void    remove_newline(char *str);
+int     is_empty(char *str);
+int     contain_two_parts(char *str);
+
+// parsing3.c
+int		ft_atoi(const char *nptr);
+// int		extract_colors(t_parsing *p, char *colors_str);
+int		extract_texture(t_game *game, char *file);
+void    parse_key_value(t_game *game);
+int		skip_empty(char *str);
+void    parse_first_elements(t_game *game);
+
+// reading.c
+int     count_lines(char *file);
+char    **read_file(char *file);
+
+//split.c
+char	**ft_split_colors(char const *s);
+char	**ft_split_idinfo(char const *s);
+
+
+
+
+
+
+
 
 int				init_mlx(t_game *game);
 void			init_hooks(t_game *game);

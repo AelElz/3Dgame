@@ -1,116 +1,109 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   parsing.h                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ael-azha <ael-azha@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/11 18:43:15 by ael-azha          #+#    #+#             */
-/*   Updated: 2025/12/15 18:54:47 by ael-azha         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+#include "gnl/get_next_line.h"
+#include <stdio.h>
+#include <unistd.h>
+#include <stdlib.h>
+#include <fcntl.h>
+#include <string.h>
+#include "../../cub3d.h"
+// typedef struct s_elements_splited
+// {
+// 	char **f;
+// 	char **c;
+// 	char **no;
+// 	char **so;
+// 	char **we;
+// 	char **ea;
+// } t_elements_splited;
 
-#ifndef PARSING_H
-# define PARSING_H
+// typedef struct s_player_info
+// {
+// 	double	player_x;
+// 	double	player_y;
+// 	double	angle;
+// }	t_player_info;
 
-# include "../../cub3d.h"
-# include <fcntl.h>
+// typedef struct s_map
+// {
+// 	char			**grid;
+// 	char			**map;//
+// 	// char			**map_full;
+// 	int				width;
+// 	int				height;
+// 	// t_rgba			top_col;
+// 	// t_rgba			floor_col;
+// 	// char			*tex_no;
+// 	// char			*tex_so;
+// 	// char			*tex_we;
+// 	// char			*tex_ea;
+// 	char			*no_texture;
+// 	char			*so_texture;
+// 	char			*we_texture;
+// 	char			*ea_texture;
+// 	// t_img			north_tex;
+// 	// t_img			south_tex;
+// 	// t_img			west_tex;
+// 	// t_img			east_tex;
+// 	// t_img			img;
+// 	// void			*mlx;
+// 	// void			*win;
+// 	// t_ind2			spawn;
+// 	char			spawn_dir;
+// 	char			*floor_color;
+// 	char			*ceiling_color;
+// 	t_player_info	player;
+// 	int				player_set;
+// }	t_map;
 
-/* Structures */
-typedef struct s_point
-{
-	int	x;
-	int	y;
-}	t_point;
+// typedef struct s_parsing
+// {
+// 	char	            **file;
+// 	char	            **first_six;
+// 	int                 has_map;
+// 	t_map				map;
+// 	t_elements_splited  elements_splited;
+// } t_parsing;
 
-typedef struct s_flood_data
-{
-	t_point	*stack;
-	char	**visited;
-	int		*stack_size;
-}	t_flood_data;
+// typedef struct s_parsing
+// {
+// 	char	            **file;
+// 	char	            **first_six;
+// 	char                **map;
+// 	int                 has_map;
+// 	int					f_rgb;
+// 	int					c_rgb;
+// 	char				*no_tex;
+// 	char				*so_tex;
+// 	char				*we_tex;
+// 	char				*ea_tex;
+// 	t_elements_splited  elements_splited;
+// } t_parsing;
 
-/* Utils functions */
-int		ft_strlen1(char *str);
-int		ft_strncmp(const char *s1, const char *s2, size_t n);
-char	*skip_spaces(char *str);
-char	*skip_to_comma(char *ptr);
-char	*copy_string(char *src, int len);
-char	*trim_end_spaces(char *start, char *end);
-char	*extract_path(char *line);
-int		parse_config_line(t_map *map, char *line);
-int		validate_parsing_completeness(t_map *map);
-void	free_visited(char **visited, t_map *map);
+// // main.c
+// int     ft_strcmp(char *s1, char *s2);
+// int     check_the_file_extension(char *file);
 
-/* Color functions */
-int		check_color_chars(char *color_str, int *commas, int *num_count);
-char	*parse_rgb_value(char *ptr, int *value, int *has_digits);
-int		validate_rgb_component(char **ptr);
-int		check_basic_format(char *color_str, int *commas, int *num_count);
-int		validate_color_format(char *color_str);
-int		validate_color(char *color, char *name, char *type);
-int		validate_all_colors(t_map *map);
-int		parse_ceiling_color(t_map *map, char *line);
-int		parse_floor_color(t_map *map, char *line);
+// // parsing.c
+// int     parse_first_six(t_parsing *p);
+// void    parse_map(t_parsing *p, int i);
+// void    parse_file(t_parsing *p);
+// void	init_elements_splited(t_elements_splited *elements_splited);
+// void	main_parsing(t_parsing *p);
 
-/* Texture functions */
-int		is_valid_xpm_path(const char *path);
-int		validate_texture(char *texture, char *name, char *dir);
-int		validate_all_textures(t_map *map);
-int		parse_no_texture(t_map *map, char *line);
-int		parse_so_texture(t_map *map, char *line);
-int		parse_we_texture(t_map *map, char *line);
-int		parse_ea_texture(t_map *map, char *line);
-void	cleanup_textures(t_map *map);
-void	cleanup_mlx_images(t_map *map);
-void	cleanup_mlx(t_map *map);
-void	cleanup_map(t_map *map);
+// // parsing2.c
+// void    freeing_arr(char **arr);
+// void    exiting(char *msg, t_parsing *p);
+// void    remove_newline(char *str);
+// int     is_empty(char *str);
+// int     contain_two_parts(char *str);
 
-/* Map functions */
-int		parse_map_config(t_map *map);
-int		check_first_row(t_map *map);
-int		check_last_row(t_map *map);
-int		get_row_length(char *row);
-int		find_first_nonspace(char *row, int len);
-int		find_last_nonspace(char *row, int len);
-int		check_row_borders(t_map *map, int y, int first_char, int last_char);
-int		should_skip_row(t_map *map, int y, int *len);
-int		validate_row_borders(t_map *map, int y, int len);
-int		check_middle_rows(t_map *map);
-int		check_map_borders(t_map *map);
-void	process_map_char(t_map *map, int x, int y, int *player_count);
-void	scan_map_for_player(t_map *map, int *pc, int *px, int *py);
-int		validate_and_set_player(t_map *map);
-char	get_map_char(t_map *map, int x, int y);
-int		check_boundary_escape(t_map *map, int nx, int ny);
-int		check_map_closed(t_map *map, int start_x, int start_y);
-void	cleanup_map_array(t_map *map);
+// // parsing3.c
+// void    parse_key_value(t_parsing *p);
+// void    parse_first_elements(t_parsing *p);
 
-/* Flood fill functions */
-int		flood_fill_loop(t_map *map, t_flood_data *data);
-void	add_neighbor_to_stack(t_flood_data *data, t_point neighbor, t_map *map);
-int		process_neighbors(t_map *map, t_point p, t_flood_data *data);
-char	**allocate_visited(t_map *map);
-t_point	*allocate_stack(t_map *map, char **visited);
+// // reading.c
+// int     count_lines(char *file);
+// char    **read_file(char *file);
 
-/* Player functions */
-void	set_player_angle(t_map *map, char c);
-void	handle_player_spawn(t_map *map, int x, int y, int *player_count);
-void	init_directions(int *dx, int *dy);
-
-/* Main parsing functions */
-char	*read_entire_file(const char *path);
-char	**split_lines(char *content, int *line_count);
-int		calculate_max_width(char **lines, int start, int count);
-char	*pad_line(char *line, int target_width);
-int		is_map_line(char *line);
-int		is_valid_map_char(char c);
-int		is_empty_or_whitespace(char *line);
-int		validate_map_continuity(char **lines, int start_idx, int count);
-int		parse_map_section(t_map *map, char **lines, int start_idx, int count);
-void	convert_spaces_to_floor(t_map *map);
-int		read_cub_file(const char *cub_path, t_map *map);
-int		count_map_lines(char **lines, int start_idx, int count);
-void	fill_map_array(t_map *map, char **lines, int start, int count);
-
-#endif
+// //split.c
+// char	**ft_split_colors(char const *s);
+// char	**ft_split_idinfo(char const *s);

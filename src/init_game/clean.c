@@ -70,8 +70,8 @@ void	game_free(t_game *game)
 	img_free(game, &game->tex.we);
 	img_free(game, &game->tex.ea);
 	img_free(game, &game->frame);
-	free_map_arrays(game);
-	free_texture_paths(game);
+	// free_map_arrays(game);
+	// free_texture_paths(game);
 	if (game->win)
 		mlx_destroy_window(game->mlx, game->win);
 	if (game->mlx)
@@ -80,6 +80,7 @@ void	game_free(t_game *game)
 		free(game->mlx);
 		game->mlx = NULL;
 	}
+	exiting(NULL, game);
 }
 
 int	game_run(t_game *game)
