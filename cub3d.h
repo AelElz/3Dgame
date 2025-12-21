@@ -6,7 +6,7 @@
 /*   By: ael-azha <ael-azha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 13:31:17 by ael-azha          #+#    #+#             */
-/*   Updated: 2025/12/19 17:04:34 by ael-azha         ###   ########.fr       */
+/*   Updated: 2025/12/21 20:53:22 by ael-azha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,6 @@
 # define WIN_W 1024
 # define WIN_H 768
 # define FOV_DEG 60.0
-# define TEX_W 64
-# define TEX_H 64
-# define TILE 64
 
 typedef struct s_player_info
 {
