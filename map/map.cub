@@ -1,17 +1,28 @@
-  SO     ./src/texture/south.xpm
+
+SO ./src/texture/south.xpm
    WE ./src/texture/west.xpm
 
 
    EA ./src/texture/east.xpm
 
+
+
+
 NO ./src/texture/north.xpm
 
 F 20,20,20
-C 200,200,212
+C 200,200,200
 
-
-11111111111111111111111
-1100000000000000E0000011
-11111111111111111111111
-
-
+11111
+10001
+10S01
+10001
+10001
+10001
+11001
+10001
+10001
+10001
+10001
+10001
+11111

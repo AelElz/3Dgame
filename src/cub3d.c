@@ -6,7 +6,7 @@
 /*   By: ael-azha <ael-azha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/26 10:40:21 by ael-azha          #+#    #+#             */
-/*   Updated: 2025/12/17 21:03:12 by ael-azha         ###   ########.fr       */
+/*   Updated: 2025/12/21 23:38:01 by ael-azha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,6 @@ int	main(int ac, char **av)
 		printf("Error: invalid file format\n");
 		return (1);
 	}
-	ft_memset(&game, 0, sizeof(game));
 	rc = game_init(&game, av[1]);
 	if (rc != 0)
 	{
