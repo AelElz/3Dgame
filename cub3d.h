@@ -6,7 +6,7 @@
 /*   By: ael-azha <ael-azha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 13:31:17 by ael-azha          #+#    #+#             */
-/*   Updated: 2025/12/21 21:20:27 by ael-azha         ###   ########.fr       */
+/*   Updated: 2025/12/21 21:25:02 by ael-azha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,7 +181,6 @@ void			set_defaults_if_empty(t_game *game);
 void			load_textures(t_game *game);
 void			game_free(t_game *game);
 int				read_cub_file(const char *cub_path, t_map *map);
-void			build_fallback_map(t_game *game);
 int				game_run(t_game *game);
 void			copy_rows_to_map(t_game *g, char **rows, int h);
 void			find_spawn(t_game *g);
