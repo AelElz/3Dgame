@@ -38,7 +38,6 @@ SRCS    =	$(SRC_DIR)/cub3d.c\
 			$(SRC_DIR)/render/draw_utils.c\
 			$(SRC_DIR)/init_game/init_game.c\
 			$(SRC_DIR)/init_game/default_color.c\
-			$(SRC_DIR)/init_game/map_build.c\
 			$(SRC_DIR)/init_game/clean.c\
 			$(SRC_DIR)/move/move.c\
 			$(SRC_DIR)/move/move_check.c\
