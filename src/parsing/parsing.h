@@ -6,7 +6,7 @@
 /*   By: ael-azha <ael-azha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/11 18:43:15 by ael-azha          #+#    #+#             */
-/*   Updated: 2025/12/20 14:33:13 by ael-azha         ###   ########.fr       */
+/*   Updated: 2025/12/21 20:00:42 by ael-azha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ char	*skip_to_comma(char *ptr);
 char	*copy_string(char *src, int len);
 char	*trim_end_spaces(char *start, char *end);
 char	*extract_path(char *line);
+char	*extract_color(char *line);
 int		parse_config_line(t_map *map, char *line);
 int		validate_parsing_completeness(t_map *map);
 void	free_visited(char **visited, t_map *map);

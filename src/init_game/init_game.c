@@ -6,7 +6,7 @@
 /*   By: ael-azha <ael-azha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/14 14:27:48 by ael-azha          #+#    #+#             */
-/*   Updated: 2025/12/19 16:33:56 by ael-azha         ###   ########.fr       */
+/*   Updated: 2025/12/21 17:03:39 by ael-azha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	init_mlx(t_game *game)
 	game->mlx = mlx_init();
 	if (!game->mlx)
 		return (1);
-	game->win = mlx_new_window(game->mlx, WIN_W, WIN_H, "cub3d");
+	game->win = mlx_new_window(game->mlx, WIN_W, WIN_H, "cub3D");
 	if (!game->win)
 		return (1);
 	return (0);
@@ -39,8 +39,8 @@ void	init_player(t_game *game)
 	game->player.dir.x = cos(game->map.player.angle * PI / 180.0);
 	game->player.dir.y = sin(game->map.player.angle * PI / 180.0);
 	cam_make_plane(&game->player, FOV_DEG);
-	game->player.move_spd = 0.03;
-	game->player.rot_spd = 0.02;
+	game->player.move_spd = 0.06;
+	game->player.rot_spd = 0.03;
 }
 
 int	init_graphics(t_game *game)

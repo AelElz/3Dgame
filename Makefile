@@ -69,7 +69,7 @@ SRCS    =	$(SRC_DIR)/cub3d.c\
 
 OBJS    = $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
-NAME    = cub3d
+NAME    = cub3D
 
 # === RULES =========================================================
 

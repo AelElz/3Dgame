@@ -6,7 +6,7 @@
 /*   By: ael-azha <ael-azha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/11 18:43:57 by ael-azha          #+#    #+#             */
-/*   Updated: 2025/12/11 18:43:58 by ael-azha         ###   ########.fr       */
+/*   Updated: 2025/12/21 20:01:00 by ael-azha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	parse_ceiling_color(t_map *map, char *line)
 		printf("Error\nDuplicate C color found\n");
 		return (0);
 	}
-	map->ceiling_color = extract_path(line);
+	map->ceiling_color = extract_color(line);
 	return (1);
 }
 
@@ -30,7 +30,7 @@ int	parse_floor_color(t_map *map, char *line)
 		printf("Error\nDuplicate F color found\n");
 		return (0);
 	}
-	map->floor_color = extract_path(line);
+	map->floor_color = extract_color(line);
 	return (1);
 }
 

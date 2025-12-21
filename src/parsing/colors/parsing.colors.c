@@ -6,7 +6,7 @@
 /*   By: ael-azha <ael-azha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/11 18:43:53 by ael-azha          #+#    #+#             */
-/*   Updated: 2025/12/11 18:43:54 by ael-azha         ###   ########.fr       */
+/*   Updated: 2025/12/21 19:58:33 by ael-azha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ int	validate_rgb_component(char **ptr)
 	*ptr = parse_rgb_value(*ptr, &value, &has_digits);
 	if (!has_digits || value > 255)
 		return (0);
+	*ptr = skip_spaces(*ptr);
 	return (1);
 }
 
