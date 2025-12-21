@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing_textures2.c                                :+:      :+:    :+:   */
+/*   parse_validate.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-azha <ael-azha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aboukent <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/11 18:42:46 by ael-azha          #+#    #+#             */
-/*   Updated: 2025/12/21 15:33:48 by ael-azha         ###   ########.fr       */
+/*   Created: 2025/12/21 17:22:14 by aboukent          #+#    #+#             */
+/*   Updated: 2025/12/21 17:22:15 by aboukent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../parsing.h"
+#include "parsing.h"
 
 int	is_valid_xpm_path(const char *path)
 {
@@ -20,7 +20,7 @@ int	is_valid_xpm_path(const char *path)
 
 	if (!path)
 		return (0);
-	len = ft_strlen1((char *)path);
+	len = ft_strlen((char *)path);
 	if (len < 5 || ft_strncmp(path + len - 4, ".xpm", 4) != 0)
 		return (0);
 	fd = open(path, O_RDONLY);
@@ -66,24 +66,12 @@ int	validate_all_textures(t_map *map)
 	return (valid);
 }
 
-int	parse_no_texture(t_map *map, char *line)
+int	validate_parsing_completeness(t_map *map)
 {
-	if (map->no_texture)
-	{
-		printf("Error\nDuplicate NO texture found\n");
-		return (0);
-	}
-	map->no_texture = extract_path(line);
-	return (1);
-}
+	int	valid_textures;
+	int	valid_colors;
 
-int	parse_so_texture(t_map *map, char *line)
-{
-	if (map->so_texture)
-	{
-		printf("Error\nDuplicate SO texture found\n");
-		return (0);
-	}
-	map->so_texture = extract_path(line);
-	return (1);
+	valid_textures = validate_all_textures(map);
+	valid_colors = validate_all_colors(map);
+	return (valid_textures && valid_colors);
 }

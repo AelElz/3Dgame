@@ -1,16 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing_map3.c                                     :+:      :+:    :+:   */
+/*   parse_validate_map1.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-azha <ael-azha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aboukent <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/11 18:43:43 by ael-azha          #+#    #+#             */
-/*   Updated: 2025/12/11 18:43:44 by ael-azha         ###   ########.fr       */
+/*   Created: 2025/12/21 17:22:30 by aboukent          #+#    #+#             */
+/*   Updated: 2025/12/21 17:22:31 by aboukent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../parsing.h"
+#include "parsing.h"
+
+int	find_first_nonspace(char *row, int len)
+{
+	int	first_char;
+
+	first_char = 0;
+	while (first_char < len && (row[first_char] == ' '
+			|| row[first_char] == '\t'))
+		first_char++;
+	return (first_char);
+}
 
 int	find_last_nonspace(char *row, int len)
 {
@@ -28,17 +39,27 @@ int	check_row_borders(t_map *map, int y, int first_char, int last_char)
 	if (first_char < get_row_length(map->map[y])
 		&& map->map[y][first_char] != '1')
 	{
-		printf("Error\nRow %d must start with a wall ('1'), found '%c'\n",
+		printf("Error: Row %d must start with a wall, found '%c'\n",
 			y, map->map[y][first_char]);
 		return (0);
 	}
 	if (last_char >= 0 && map->map[y][last_char] != '1')
 	{
-		printf("Error\nRow %d must end with a wall ('1'), found '%c'\n",
+		printf("Error: Row %d must end with a wall, found '%c'\n",
 			y, map->map[y][last_char]);
 		return (0);
 	}
 	return (1);
+}
+
+int	get_row_length(char *row)
+{
+	int	len;
+
+	len = 0;
+	while (row[len] && row[len] != '\n')
+		len++;
+	return (len);
 }
 
 int	should_skip_row(t_map *map, int y, int *len)
@@ -49,36 +70,4 @@ int	should_skip_row(t_map *map, int y, int *len)
 	if (*len == 0)
 		return (1);
 	return (0);
-}
-
-int	validate_row_borders(t_map *map, int y, int len)
-{
-	int	first_char;
-	int	last_char;
-
-	first_char = find_first_nonspace(map->map[y], len);
-	last_char = find_last_nonspace(map->map[y], len);
-	if (!check_row_borders(map, y, first_char, last_char))
-		return (0);
-	return (1);
-}
-
-int	check_middle_rows(t_map *map)
-{
-	int	y;
-	int	len;
-
-	y = 0;
-	while (y < map->height)
-	{
-		if (should_skip_row(map, y, &len))
-		{
-			y++;
-			continue ;
-		}
-		if (!validate_row_borders(map, y, len))
-			return (0);
-		y++;
-	}
-	return (1);
 }

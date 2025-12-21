@@ -1,59 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing_main_new.c                                 :+:      :+:    :+:   */
+/*   reading1.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-azha <ael-azha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aboukent <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/14 00:00:00 by ael-azha          #+#    #+#             */
-/*   Updated: 2025/12/18 21:07:16 by ael-azha         ###   ########.fr       */
+/*   Created: 2025/12/21 17:23:12 by aboukent          #+#    #+#             */
+/*   Updated: 2025/12/21 17:23:13 by aboukent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../parsing.h"
-
-char	*read_entire_file(const char *path)
-{
-	int		fd;
-	char	buf[1024];
-	char	*content;
-	char	*tmp;
-	int		bytes;
-
-	fd = open(path, O_RDONLY);
-	if (fd < 0)
-		return (NULL);
-	content = ft_strdup("");
-	bytes = read(fd, buf, 1023);
-	while (bytes > 0)
-	{
-		buf[bytes] = '\0';
-		tmp = ft_strjoin(content, buf);
-		free(content);
-		content = tmp;
-		bytes = read(fd, buf, 1023);
-	}
-	close(fd);
-	return (content);
-}
-
-int	count_lines_in_content(char *content)
-{
-	int	count;
-	int	i;
-
-	count = 0;
-	i = 0;
-	while (content[i])
-	{
-		if (content[i] == '\n')
-			count++;
-		i++;
-	}
-	if (i > 0 && content[i - 1] != '\n')
-		count++;
-	return (count);
-}
+#include "parsing.h"
 
 char	*extract_line(char *content, int *pos)
 {

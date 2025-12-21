@@ -1,28 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parcing_player.c                                   :+:      :+:    :+:   */
+/*   parse_player.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ael-azha <ael-azha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/11 18:42:53 by ael-azha          #+#    #+#             */
-/*   Updated: 2025/12/21 20:18:23 by ael-azha         ###   ########.fr       */
+/*   Created: 2025/12/21 17:21:21 by aboukent          #+#    #+#             */
+/*   Updated: 2025/12/21 22:05:05 by ael-azha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../parsing.h"
-
-void	init_directions(int *dx, int *dy)
-{
-	dx[0] = 1;
-	dy[0] = 0;
-	dx[1] = -1;
-	dy[1] = 0;
-	dx[2] = 0;
-	dy[2] = 1;
-	dx[3] = 0;
-	dy[3] = -1;
-}
+#include "parsing.h"
 
 void	set_player_angle(t_map *map, char c)
 {
@@ -36,16 +24,45 @@ void	set_player_angle(t_map *map, char c)
 		map->player.angle = 0.0;
 }
 
-void	handle_player_spawn(t_map *map, int x, int y, int *player_count)
+void	process_player_found(t_map *map, int x, int y, int *pc)
 {
-	if (*player_count > 0)
+	char	c;
+
+	if (*pc > 0)
 	{
-		(*player_count)++;
+		(*pc)++;
 		return ;
 	}
+	c = map->map[y][x];
 	map->player.player_x = (double)x + 0.5;
 	map->player.player_y = (double)y + 0.5;
-	set_player_angle(map, map->map[y][x]);
+	set_player_angle(map, c);
 	map->map[y][x] = '0';
-	(*player_count)++;
+	(*pc)++;
+}
+
+void	scan_map_for_player(t_map *map, int *pc, int *px, int *py)
+{
+	int		x;
+	int		y;
+	char	c;
+
+	*pc = 0;
+	y = 0;
+	while (y < map->height)
+	{
+		x = 0;
+		while (map->map[y][x])
+		{
+			c = map->map[y][x];
+			if (c == 'N' || c == 'S' || c == 'W' || c == 'E')
+			{
+				*px = x;
+				*py = y;
+				process_player_found(map, x, y, pc);
+			}
+			x++;
+		}
+		y++;
+	}
 }

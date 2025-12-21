@@ -1,70 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing_main3.c                                    :+:      :+:    :+:   */
+/*   parse_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-azha <ael-azha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aboukent <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/15 19:00:00 by ael-azha          #+#    #+#             */
-/*   Updated: 2025/12/17 22:10:46 by ael-azha         ###   ########.fr       */
+/*   Created: 2025/12/21 17:20:47 by aboukent          #+#    #+#             */
+/*   Updated: 2025/12/21 17:20:48 by aboukent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../parsing.h"
-
-static int	validate_map_char_in_line(char *line)
-{
-	int	j;
-
-	j = 0;
-	while (line[j])
-	{
-		if (line[j] != '\n' && line[j] != '\r'
-			&& !is_valid_map_char(line[j]))
-		{
-			printf("Error: Invalid character '%c' in map\n", line[j]);
-			return (0);
-		}
-		j++;
-	}
-	return (1);
-}
-
-static int	check_empty_line(char **lines, int i, int count)
-{
-	if (i + 1 < count && lines[i + 1]
-		&& !is_empty_or_whitespace(lines[i + 1]))
-	{
-		printf("Error: Empty line within map (line %d)\n", i + 1);
-		return (0);
-	}
-	return (1);
-}
-
-static int	process_line(char **lines, int i, int *started, int *empty)
-{
-	if (!is_empty_or_whitespace(lines[i]))
-	{
-		*empty = 0;
-		if (is_map_line(lines[i]))
-		{
-			*started = 1;
-			if (!validate_map_char_in_line(lines[i]))
-				return (0);
-		}
-		else if (*started)
-		{
-			printf("Error: Invalid content after map starts: '%s'\n", lines[i]);
-			return (0);
-		}
-	}
-	else if (*started)
-	{
-		(*empty)++;
-		return (check_empty_line(lines, i, 0));
-	}
-	return (1);
-}
+#include "parsing.h"
 
 int	validate_map_continuity(char **lines, int start_idx, int count)
 {
@@ -81,7 +27,7 @@ int	validate_map_continuity(char **lines, int start_idx, int count)
 			return (0);
 		if (consecutive_empty && i + 1 < count && lines[i + 1])
 		{
-			if (!is_empty_or_whitespace(lines[i + 1]))
+			if (!is_empty(lines[i + 1]))
 			{
 				printf("Error: Empty line within map (line %d)\n", i + 1);
 				return (0);
@@ -107,5 +53,56 @@ int	parse_map_section(t_map *map, char **lines, int start_idx, int count)
 	map->map = malloc(sizeof(char *) * (map_lines + 1));
 	map->height = map_lines;
 	fill_map_array(map, lines, start_idx, count);
+	return (1);
+}
+
+int	process_map_data(t_map *map, char **lines, int i, int line_count)
+{
+	if (!parse_map_section(map, lines, i, line_count))
+	{
+		printf("Error: No valid map found\n");
+		return (0);
+	}
+	if (!validate_parsing_completeness(map))
+		return (0);
+	if (!check_map_borders(map))
+	{
+		printf("Error: Map is not properly enclosed\n");
+		return (0);
+	}
+	convert_spaces_to_floor(map);
+	if (!validate_and_set_player(map))
+		return (0);
+	return (1);
+}
+
+int	find_map_start(char **lines, int line_count)
+{
+	int	i;
+
+	i = 0;
+	while (i < line_count && lines[i])
+	{
+		if (*skip_spaces(lines[i]) == '1' || *skip_spaces(lines[i]) == '0')
+			break ;
+		i++;
+	}
+	return (i);
+}
+
+int	parse_map(t_map *map, char **lines, int line_count)
+{
+	int	i;
+
+	i = find_map_start(lines, line_count);
+	if (!process_map_data(map, lines, i, line_count))
+	{
+		if (map->map != lines)
+			cleanup_lines(map->map, map->height);
+		map->map = NULL;
+		cleanup_lines(lines, line_count);
+		return (0);
+	}
+	cleanup_lines(lines, line_count);
 	return (1);
 }

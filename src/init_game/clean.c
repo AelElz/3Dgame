@@ -16,13 +16,6 @@ void	free_map_arrays(t_game *game)
 {
 	int	i;
 
-	if (game->map.map_full)
-	{
-		i = 0;
-		while (game->map.map_full[i])
-			free(game->map.map_full[i++]);
-		free(game->map.map_full);
-	}
 	if (game->map.map)
 	{
 		i = 0;
@@ -41,14 +34,6 @@ void	free_map_arrays(t_game *game)
 
 void	free_texture_paths(t_game *game)
 {
-	if (game->map.tex_no)
-		free(game->map.tex_no);
-	if (game->map.tex_so)
-		free(game->map.tex_so);
-	if (game->map.tex_we)
-		free(game->map.tex_we);
-	if (game->map.tex_ea)
-		free(game->map.tex_ea);
 	if (game->map.no_texture)
 		free(game->map.no_texture);
 	if (game->map.so_texture)
@@ -90,16 +75,16 @@ int	game_run(t_game *game)
 	return (0);
 }
 
-void	cleanup_lines(char **lines, int line_count)
-{
-	int	i;
+// void	cleanup_lines(char **lines, int line_count)
+// {
+// 	int	i;
 
-	i = 0;
-	while (i < line_count)
-	{
-		if (lines[i])
-			free(lines[i]);
-		i++;
-	}
-	free(lines);
-}
+// 	i = 0;
+// 	while (i < line_count)
+// 	{
+// 		if (lines[i])
+// 			free(lines[i]);
+// 		i++;
+// 	}
+// 	free(lines);
+// }

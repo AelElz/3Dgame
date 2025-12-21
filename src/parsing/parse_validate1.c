@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.colors.c                                   :+:      :+:    :+:   */
+/*   parse_validate1.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-azha <ael-azha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aboukent <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/11 18:43:53 by ael-azha          #+#    #+#             */
-/*   Updated: 2025/12/21 19:58:33 by ael-azha         ###   ########.fr       */
+/*   Created: 2025/12/21 17:21:40 by aboukent          #+#    #+#             */
+/*   Updated: 2025/12/21 17:21:42 by aboukent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../parsing.h"
+#include "parsing.h"
 
 int	check_color_chars(char *color_str, int *commas, int *num_count)
 {
@@ -29,32 +29,6 @@ int	check_color_chars(char *color_str, int *commas, int *num_count)
 			return (0);
 		i++;
 	}
-	return (1);
-}
-
-char	*parse_rgb_value(char *ptr, int *value, int *has_digits)
-{
-	*value = 0;
-	*has_digits = 0;
-	while (*ptr && *ptr >= '0' && *ptr <= '9')
-	{
-		*value = *value * 10 + (*ptr++ - '0');
-		*has_digits = 1;
-		if (*value > 255)
-			break ;
-	}
-	return (ptr);
-}
-
-int	validate_rgb_component(char **ptr)
-{
-	int	value;
-	int	has_digits;
-
-	*ptr = parse_rgb_value(*ptr, &value, &has_digits);
-	if (!has_digits || value > 255)
-		return (0);
-	*ptr = skip_spaces(*ptr);
 	return (1);
 }
 
@@ -91,4 +65,31 @@ int	validate_color_format(char *color_str)
 	if (!validate_rgb_component(&ptr))
 		return (0);
 	return (1);
+}
+
+int	validate_color(char *color, char *name, char *type)
+{
+	if (!color)
+	{
+		printf("Error: Missing %s (%s) color\n", name, type);
+		return (0);
+	}
+	if (!validate_color_format(color))
+	{
+		printf("Error: Invalid %s color format: %s\n", type, color);
+		return (0);
+	}
+	return (1);
+}
+
+int	validate_all_colors(t_map *map)
+{
+	int	valid;
+
+	valid = 1;
+	if (!validate_color(map->floor_color, "F", "Floor"))
+		valid = 0;
+	if (!validate_color(map->ceiling_color, "C", "Ceiling"))
+		valid = 0;
+	return (valid);
 }

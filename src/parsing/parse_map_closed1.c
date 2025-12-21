@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing_utils2.c                                   :+:      :+:    :+:   */
+/*   parse_map_closed1.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-azha <ael-azha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aboukent <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/11 18:43:05 by ael-azha          #+#    #+#             */
-/*   Updated: 2025/12/17 22:11:04 by ael-azha         ###   ########.fr       */
+/*   Created: 2025/12/21 17:20:59 by aboukent          #+#    #+#             */
+/*   Updated: 2025/12/21 17:21:00 by aboukent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../parsing.h"
+#include "parsing.h"
 
 void	add_neighbor_to_stack(t_flood_data *data, t_point neighbor, t_map *map)
 {
@@ -25,6 +25,34 @@ void	add_neighbor_to_stack(t_flood_data *data, t_point neighbor, t_map *map)
 			data->stack[(*data->stack_size)++] = neighbor;
 		}
 	}
+}
+
+int	check_boundary_escape(t_map *map, int nx, int ny)
+{
+	char	c;
+
+	if (ny < 0 || ny >= map->height)
+		return (1);
+	if (nx < 0 || nx >= map->width)
+		return (1);
+	if (!map->map[ny])
+		return (1);
+	c = map->map[ny][nx];
+	if (c == ' ' || c == '\t' || c == '\0')
+		return (1);
+	return (0);
+}
+
+void	init_directions(int *dx, int *dy)
+{
+	dx[0] = 1;
+	dy[0] = 0;
+	dx[1] = -1;
+	dy[1] = 0;
+	dx[2] = 0;
+	dy[2] = 1;
+	dx[3] = 0;
+	dy[3] = -1;
 }
 
 int	process_neighbors(t_map *map, t_point p, t_flood_data *data)
@@ -53,34 +81,15 @@ int	process_neighbors(t_map *map, t_point p, t_flood_data *data)
 	return (1);
 }
 
-t_point	*allocate_stack(t_map *map, char **visited)
+int	flood_fill_loop(t_map *map, t_flood_data *data)
 {
-	t_point	*stack;
+	t_point	current;
 
-	stack = malloc(sizeof(t_point) * (map->width * map->height));
-	if (!stack)
+	while (*data->stack_size > 0)
 	{
-		free_visited(visited, map);
-		return (NULL);
+		current = data->stack[--(*data->stack_size)];
+		if (!process_neighbors(map, current, data))
+			return (0);
 	}
-	return (stack);
-}
-
-char	*skip_to_comma(char *ptr)
-{
-	while (*ptr && (*ptr == ' ' || *ptr == '\t'))
-		ptr++;
-	if (*ptr != ',')
-		return (NULL);
-	return (ptr + 1);
-}
-
-int	validate_parsing_completeness(t_map *map)
-{
-	int	valid_textures;
-	int	valid_colors;
-
-	valid_textures = validate_all_textures(map);
-	valid_colors = validate_all_colors(map);
-	return (valid_textures && valid_colors);
+	return (1);
 }
