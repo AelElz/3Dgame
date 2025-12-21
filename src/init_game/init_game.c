@@ -58,12 +58,12 @@ int	init_graphics(t_game *game)
 	return (0);
 }
 
-int	game_init(t_game *game, const char *cub_path)
+int	game_init(t_game *game, char *cub_path)
 {
 	int	parsed;
 
 	ft_memset(game, 0, sizeof(*game));
-	parsed = read_cub_file(cub_path, &game->map);
+	parsed = read_file(cub_path, &game->map);
 	if (!parsed)
 	{
 		printf("Error: Failed to parse map file, exiting\n");

@@ -30,7 +30,7 @@
 # include <stdbool.h>
 # include <string.h>
 # include <math.h>
-# include "mlx.h"
+# include "../minilibx-linux/mlx.h"
 # include <X11/keysym.h>
 # define K_ESC XK_Escape
 # define K_W XK_w
@@ -101,23 +101,14 @@ typedef struct s_map
 {
 	char			**grid;
 	char			**map;
-	char			**map_full;
 	int				width;
 	int				height;
 	t_rgba			top_col;
 	t_rgba			floor_col;
-	char			*tex_no;
-	char			*tex_so;
-	char			*tex_we;
-	char			*tex_ea;
 	char			*no_texture;
 	char			*so_texture;
 	char			*we_texture;
 	char			*ea_texture;
-	t_img			north_tex;
-	t_img			south_tex;
-	t_img			west_tex;
-	t_img			east_tex;
 	t_img			img;
 	void			*mlx;
 	void			*win;
@@ -179,11 +170,10 @@ typedef struct s_game
 
 int				init_mlx(t_game *game);
 void			init_hooks(t_game *game);
-int				game_init(t_game *game, const char *cub_path);
+int				game_init(t_game *game, char *cub_path);
 void			set_defaults_if_empty(t_game *game);
 void			load_textures(t_game *game);
 void			game_free(t_game *game);
-int				read_cub_file(const char *cub_path, t_map *map);
 void			build_fallback_map(t_game *game);
 int				game_run(t_game *game);
 void			copy_rows_to_map(t_game *g, char **rows, int h);

@@ -10,7 +10,8 @@ UNAME_S := $(shell uname -s)
 # === MLX SETUP =====================================================
 
 ifeq ($(UNAME_S), Linux)
-	MLX     = -lmlx -lXext -lX11 -lm -lz
+	MLX_DIR = ./minilibx-linux
+	MLX     = -L$(MLX_DIR) -lmlx -lXext -lX11 -lm -lz
 endif
 
 ifeq ($(UNAME_S), Darwin)
@@ -47,25 +48,23 @@ SRCS    =	$(SRC_DIR)/cub3d.c\
 			$(SRC_DIR)/ray/ray.c\
 			$(SRC_DIR)/ray/ray_cam.c\
 			$(SRC_DIR)/ray/ray_tex.c\
-			$(SRC_DIR)/parsing/parsin_main/parsing_main_new.c\
-			$(SRC_DIR)/parsing/parsin_main/parsing_main2.c\
-			$(SRC_DIR)/parsing/parsin_main/parsing_main3.c\
-			$(SRC_DIR)/parsing/parsin_main/parsing_main4.c\
-			$(SRC_DIR)/parsing/parsin_main/parsing_main5.c\
-			$(SRC_DIR)/parsing/parsin_utils/parsing_utils1.c\
-			$(SRC_DIR)/parsing/parsin_utils/parsing_utils2.c\
-			$(SRC_DIR)/parsing/parsin_utils/parsing_utils3.c\
-			$(SRC_DIR)/parsing/colors/parsing.colors.c\
-			$(SRC_DIR)/parsing/colors/parsing.colors2.c\
-			$(SRC_DIR)/parsing/maps/parsing_map1.c\
-			$(SRC_DIR)/parsing/maps/parsing_map2.c\
-			$(SRC_DIR)/parsing/maps/parsing_map3.c\
-			$(SRC_DIR)/parsing/maps/parsing_map4.c\
-			$(SRC_DIR)/parsing/maps/parsing_map5.c\
-			$(SRC_DIR)/parsing/player/parcing_player.c\
-			$(SRC_DIR)/parsing/textures/parsing_textures.c\
-			$(SRC_DIR)/parsing/textures/parsing_textures2.c\
-			$(SRC_DIR)/parsing/textures/parsing_textures3.c
+			$(SRC_DIR)/parsing/parse_config.c\
+			$(SRC_DIR)/parsing/parse_config1.c\
+			$(SRC_DIR)/parsing/parse_map_closed.c\
+			$(SRC_DIR)/parsing/parse_map_closed1.c\
+			$(SRC_DIR)/parsing/parse_map.c\
+			$(SRC_DIR)/parsing/parse_map1.c\
+			$(SRC_DIR)/parsing/parse_map2.c\
+			$(SRC_DIR)/parsing/parse_player.c\
+			$(SRC_DIR)/parsing/parse_spaces.c\
+			$(SRC_DIR)/parsing/parse_validate_map.c\
+			$(SRC_DIR)/parsing/parse_validate_map1.c\
+			$(SRC_DIR)/parsing/parse_validate.c\
+			$(SRC_DIR)/parsing/parse_validate1.c\
+			$(SRC_DIR)/parsing/parse_validate2.c\
+			$(SRC_DIR)/parsing/parsing_utils.c\
+			$(SRC_DIR)/parsing/reading.c\
+			$(SRC_DIR)/parsing/reading1.c
 
 OBJS    = $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 

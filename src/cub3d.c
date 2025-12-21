@@ -12,9 +12,29 @@
 
 #include "../cub3d.h"
 
-int	ft_error(void)
+int	ft_strcmp(char *s1, char *s2)
 {
-	printf("Error: ./cub3D <map.cub>\n");
+	int	i;
+
+	i = 0;
+	while (s1[i] && s2[i])
+	{
+		if (s1[i] != s2[i])
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+int	check_file_extension(char *file)
+{
+	int	i;
+
+	i = ft_strlen(file);
+	while (file[i] != '.')
+		i--;
+	if (ft_strcmp(&file[i], ".cub") && ft_strlen(&file[i]) == 4)
+		return (0);
 	return (1);
 }
 
@@ -51,10 +71,13 @@ int	main(int ac, char **av)
 	int		rc;
 
 	if (ac != 2)
-		return (ft_error());
-	if (!is_valid_cub_filename(av[1]))
 	{
-		printf("Error: Invalid map filename. Must be <name>.cub\n");
+		printf("Error: invalid arguments\n");
+		return (1);
+	}
+	if (check_file_extension(av[1]))
+	{
+		printf("Error: invalid file format\n");
 		return (1);
 	}
 	ft_memset(&game, 0, sizeof(game));
