@@ -6,7 +6,7 @@
 /*   By: ael-azha <ael-azha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/14 14:27:48 by ael-azha          #+#    #+#             */
-/*   Updated: 2025/12/21 17:03:39 by ael-azha         ###   ########.fr       */
+/*   Updated: 2025/12/21 21:19:46 by ael-azha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int	game_init(t_game *game, const char *cub_path)
 		printf("Error: Failed to parse map file, exiting\n");
 		return (1);
 	}
-	set_defaults_if_empty(game);
+	parse_colors(game);
 	if (init_graphics(game))
 		return (1);
 	init_player(game);

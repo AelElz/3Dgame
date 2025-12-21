@@ -6,7 +6,7 @@
 /*   By: ael-azha <ael-azha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/23 21:43:49 by ayoub             #+#    #+#             */
-/*   Updated: 2025/12/17 22:05:10 by ael-azha         ###   ########.fr       */
+/*   Updated: 2025/12/21 21:19:52 by ael-azha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,19 +77,4 @@ void	parse_colors(t_game *game)
 		game->map.top_col = parse_rgb_string(game->map.ceiling_color);
 	if (game->map.floor_color)
 		game->map.floor_col = parse_rgb_string(game->map.floor_color);
-}
-
-void	set_defaults_if_empty(t_game *game)
-{
-	int	*tc;
-	int	*fc;
-
-	parse_colors(game);
-	tc = (int *)&game->map.top_col;
-	fc = (int *)&game->map.floor_col;
-	if (*tc == 0 && *fc == 0)
-	{
-		game->map.top_col = (t_rgba){153, 204, 255, 0};
-		game->map.floor_col = (t_rgba){51, 51, 51, 0};
-	}
 }
