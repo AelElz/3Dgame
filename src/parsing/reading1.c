@@ -3,14 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   reading1.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aboukent <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ael-azha <ael-azha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/21 17:23:12 by aboukent          #+#    #+#             */
-/*   Updated: 2025/12/21 17:23:13 by aboukent         ###   ########.fr       */
+/*   Updated: 2025/12/21 22:55:43 by ael-azha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
+
+int	contain_two_parts(char *str)
+{
+	int	i;
+	int	parts;
+
+	i = 0;
+	parts = 0;
+	while (str[i])
+	{
+		while (str[i] == ' ' || str[i] == '\t')
+			i++;
+		if (!str[i] || str[i] == '\n')
+			break ;
+		else if (str[i] != ' ' && str[i] != '\t')
+			parts++;
+		while (str[i] && str[i] != ' ' && str[i] != '\t' && str[i] != '\n')
+			i++;
+	}
+	if (parts != 2)
+		return (0);
+	return (1);
+}
 
 char	*extract_line(char *content, int *pos)
 {

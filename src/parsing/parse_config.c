@@ -6,7 +6,7 @@
 /*   By: ael-azha <ael-azha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/21 17:19:30 by aboukent          #+#    #+#             */
-/*   Updated: 2025/12/21 22:21:13 by ael-azha         ###   ########.fr       */
+/*   Updated: 2025/12/21 22:55:54 by ael-azha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,20 +58,22 @@ int	parse_floor_color(t_map *map, char *line)
 
 int	parse_config_line(t_map *map, char *line)
 {
-	if (ft_strncmp(line, "NO ", 3) == 0)
+	if (ft_strncmp(line, "NO ", 3) == 0 && contain_two_parts(line))
 		return (parse_no_texture(map, line));
-	else if (ft_strncmp(line, "SO ", 3) == 0)
+	else if (ft_strncmp(line, "SO ", 3) == 0 && contain_two_parts(line))
 		return (parse_so_texture(map, line));
-	else if (ft_strncmp(line, "WE ", 3) == 0)
+	else if (ft_strncmp(line, "WE ", 3) == 0 && contain_two_parts(line))
 		return (parse_we_texture(map, line));
-	else if (ft_strncmp(line, "EA ", 3) == 0)
+	else if (ft_strncmp(line, "EA ", 3) == 0 && contain_two_parts(line))
 		return (parse_ea_texture(map, line));
-	else if (ft_strncmp(line, "F ", 2) == 0)
+	else if (ft_strncmp(line, "F ", 2) == 0 && contain_two_parts(line))
 		return (parse_floor_color(map, line));
-	else if (ft_strncmp(line, "C ", 2) == 0)
+	else if (ft_strncmp(line, "C ", 2) == 0 && contain_two_parts(line))
 		return (parse_ceiling_color(map, line));
 	else if (*line == '1' || *line == '0')
 		return (-1);
+	else
+		return (0);
 	return (1);
 }
 

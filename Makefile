@@ -7,8 +7,6 @@ CFLAGS  = -g -Wall -Wextra -Werror -I. -Iincludes
 
 UNAME_S := $(shell uname -s)
 
-# === MLX SETUP =====================================================
-
 ifeq ($(UNAME_S), Linux)
 	MLX_DIR = ./minilibx-linux
 	MLX     = -L$(MLX_DIR) -lmlx -lXext -lX11 -lm -lz
@@ -19,13 +17,9 @@ ifeq ($(UNAME_S), Darwin)
 	MLX     = -L$(MLX_DIR) -lmlx -framework OpenGL -framework AppKit
 endif
 
-# === LIBFT =========================================================
-
 LIBFT_DIR   = includes/libft
 LIBFT       = $(LIBFT_DIR)/libft.a
 LIBFT_LINK  = -L$(LIBFT_DIR) -lft
-
-# === SOURCES / OBJECTS =============================================
 
 SRC_DIR = src
 OBJ_DIR = obj
@@ -39,9 +33,7 @@ SRCS    =	$(SRC_DIR)/cub3d.c\
 			$(SRC_DIR)/render/draw_utils.c\
 			$(SRC_DIR)/init_game/init_game.c\
 			$(SRC_DIR)/init_game/default_color.c\
-			$(SRC_DIR)/init_game/map_build.c\
 			$(SRC_DIR)/init_game/clean.c\
-			$(SRC_DIR)/init_game/fallback_map.c\
 			$(SRC_DIR)/move/move.c\
 			$(SRC_DIR)/move/move_check.c\
 			$(SRC_DIR)/move/move_turn.c\
@@ -69,8 +61,6 @@ SRCS    =	$(SRC_DIR)/cub3d.c\
 OBJS    = $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
 NAME    = cub3D
-
-# === RULES =========================================================
 
 all: $(NAME)
 

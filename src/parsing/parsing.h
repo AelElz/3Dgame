@@ -6,7 +6,7 @@
 /*   By: ael-azha <ael-azha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/21 17:22:51 by aboukent          #+#    #+#             */
-/*   Updated: 2025/12/21 22:19:38 by ael-azha         ###   ########.fr       */
+/*   Updated: 2025/12/21 22:54:43 by ael-azha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,7 @@ int		parse_config_line(t_map *map, char *line);
 int		parse_config(t_map *map);
 
 // reading1.c
+int		contain_two_parts(char *str);
 char	*extract_line(char *content, int *pos);
 char	**allocate_and_fill_lines(char *content, int count, int *lc);
 char	**split_lines(char *content, int *line_count);
