@@ -6,7 +6,7 @@
 /*   By: ael-azha <ael-azha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/11 18:42:53 by ael-azha          #+#    #+#             */
-/*   Updated: 2025/12/14 14:40:27 by ael-azha         ###   ########.fr       */
+/*   Updated: 2025/12/21 20:14:47 by ael-azha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,7 @@ void	handle_player_spawn(t_map *map, int x, int y, int *player_count)
 {
 	if (*player_count > 0)
 	{
-		printf("Error\nMultiple player spawn points found\n");
-		exit(1);
+		return ;
 	}
 	map->player.player_x = (double)x + 0.5;
 	map->player.player_y = (double)y + 0.5;
