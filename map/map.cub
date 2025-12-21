@@ -1,12 +1,13 @@
-NO ./src/texture/north.xpm
-SO ./src/texture/south.xpm
-WE ./src/texture/west.xpm
+NO      ./src/texture/north.xpm
+               SO ./src/texture/south.xpm
+   WE          ./src/texture/west.xpm
 EA ./src/texture/east.xpm
 
-F 0,0,0
-C 0,0,0
+F 0  ,   0   ,0
+C       0,      0,       0
 
-1111111111111111111111111
+11
+111111111111111111111111
 1000001100001000000000001
 1000110000000000111111011
 10001100000E0000110001001

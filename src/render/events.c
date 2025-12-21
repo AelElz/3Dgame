@@ -6,23 +6,17 @@
 /*   By: ael-azha <ael-azha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 16:39:05 by ayoub             #+#    #+#             */
-/*   Updated: 2025/12/11 17:59:07 by ael-azha         ###   ########.fr       */
+/*   Updated: 2025/12/21 21:30:53 by ael-azha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void	request_quit(t_game *game)
+int	win_close(t_game *game)
 {
 	game->running = false;
 	game_free(game);
 	exit(0);
-}
-
-int	win_close(t_game *game)
-{
-	request_quit(game);
-	return (0);
 }
 
 int	key_down(int key, t_game *game)
