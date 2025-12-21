@@ -6,7 +6,7 @@
 /*   By: ael-azha <ael-azha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/11 18:42:53 by ael-azha          #+#    #+#             */
-/*   Updated: 2025/12/21 20:14:47 by ael-azha         ###   ########.fr       */
+/*   Updated: 2025/12/21 20:18:23 by ael-azha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void	handle_player_spawn(t_map *map, int x, int y, int *player_count)
 {
 	if (*player_count > 0)
 	{
+		(*player_count)++;
 		return ;
 	}
 	map->player.player_x = (double)x + 0.5;

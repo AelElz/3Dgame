@@ -6,7 +6,7 @@
 /*   By: ael-azha <ael-azha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/11 18:43:48 by ael-azha          #+#    #+#             */
-/*   Updated: 2025/12/21 20:16:28 by ael-azha         ###   ########.fr       */
+/*   Updated: 2025/12/21 20:18:23 by ael-azha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,10 @@ static void	process_player_found(t_map *map, int x, int y, int *pc)
 	char	c;
 
 	if (*pc > 0)
+	{
+		(*pc)++;
 		return ;
+	}
 	c = map->map[y][x];
 	map->player.player_x = (double)x + 0.5;
 	map->player.player_y = (double)y + 0.5;
