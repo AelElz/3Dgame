@@ -73,6 +73,5 @@ int	read_file(char *file, t_map *map)
 	}
 	if (!parse_map(map, lines, line_count))
 		return (0);
-	map->player_set = 1;
 	return (1);
 }

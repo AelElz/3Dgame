@@ -38,33 +38,6 @@ int	check_file_extension(char *file)
 	return (1);
 }
 
-int	is_valid_cub_filename(char *filename)
-{
-	int		len;
-	char	*last_slash;
-	char	*basename;
-
-	if (!filename)
-		return (0);
-	last_slash = ft_strrchr(filename, '/');
-	if (last_slash)
-		basename = last_slash + 1;
-	else
-		basename = filename;
-	if (!basename || !*basename)
-		return (0);
-	if (basename[0] == '.')
-		return (0);
-	len = ft_strlen(basename);
-	if (len < 5)
-		return (0);
-	if (ft_strncmp(basename + len - 4, ".cub", 4) != 0)
-		return (0);
-	if (len == 4)
-		return (0);
-	return (1);
-}
-
 int	main(int ac, char **av)
 {
 	t_game	game;

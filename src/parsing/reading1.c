@@ -12,29 +12,6 @@
 
 #include "parsing.h"
 
-int	contain_two_parts(char *str)
-{
-	int	i;
-	int	parts;
-
-	i = 0;
-	parts = 0;
-	while (str[i])
-	{
-		while (str[i] == ' ' || str[i] == '\t')
-			i++;
-		if (!str[i] || str[i] == '\n')
-			break ;
-		else if (str[i] != ' ' && str[i] != '\t')
-			parts++;
-		while (str[i] && str[i] != ' ' && str[i] != '\t' && str[i] != '\n')
-			i++;
-	}
-	if (parts != 2)
-		return (0);
-	return (1);
-}
-
 char	*extract_line(char *content, int *pos)
 {
 	int		start;

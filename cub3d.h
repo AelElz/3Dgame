@@ -117,7 +117,6 @@ typedef struct s_map
 	char			*floor_color;
 	char			*ceiling_color;
 	t_player_info	player;
-	int				player_set;
 }	t_map;
 
 typedef struct s_player
