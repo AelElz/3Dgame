@@ -6,7 +6,7 @@
 /*   By: ael-azha <ael-azha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/23 21:45:58 by ayoub             #+#    #+#             */
-/*   Updated: 2025/12/19 17:04:20 by ael-azha         ###   ########.fr       */
+/*   Updated: 2025/12/22 02:45:31 by ael-azha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,17 +74,3 @@ int	game_run(t_game *game)
 	mlx_loop(game->mlx);
 	return (0);
 }
-
-// void	cleanup_lines(char **lines, int line_count)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (i < line_count)
-// 	{
-// 		if (lines[i])
-// 			free(lines[i]);
-// 		i++;
-// 	}
-// 	free(lines);
-// }
